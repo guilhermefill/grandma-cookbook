@@ -7,7 +7,7 @@ const recipeSchema = new Schema({
     required: true,
   },
   ingredients: [String],
-  creator: String, //Need to link the user here
+  creator: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   shortDescription: String,
   imageUrl: {
     type: String,
@@ -18,8 +18,8 @@ const recipeSchema = new Schema({
     required: true
   },
   dietRestriction: {
-      type: [String],
-      enum: ['Vegan', 'Vegetarian', 'Gluten-free']
+    type: [String],
+    enum: ['Vegan', 'Vegetarian', 'Gluten-free']
   },
   level: {
     type: String,
