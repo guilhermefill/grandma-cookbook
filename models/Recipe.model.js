@@ -37,7 +37,8 @@ const recipeSchema = new Schema({
   //   type: Number,
   //   min: 0
   // },
-  public: Boolean
+  public: Boolean,
+  comment: String
 },
 {
     timestamps: true

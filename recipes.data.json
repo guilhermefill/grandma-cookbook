@@ -9,7 +9,8 @@
     "level": "Easy",
     "cuisine": "Spanish",
     "dishType": "Appetizer",
-    "public": true
+    "public": true,
+    "comment": ""
     },
     {"title":"Spanish omelette",
     "ingredients": ["6 eggs", "1kg of potatoes", "olive oil", "1 onion"],
@@ -21,7 +22,8 @@
     "level": "Medium",
     "cuisine": "Spanish",
     "dishType": "Main course",
-    "public": true
+    "public": true,
+    "comment": ""
     },
     {"title":"Salmorejo",
     "ingredients": ["1/2 kg of 1 or 2 days old rustic bread", "1kg of ripe tomatoes", "1 or 2 garlic cloves", "1/2 cup of olive oil","1/2 green bell pepper", "white vinegar", "salt", "Optional: serrano ham bits, hard boiled eggs, sliced almonds, diced peppers, pistachios"],
@@ -33,7 +35,8 @@
     "level": "Easy",
     "cuisine": "Spanish",
     "dishType": "Starter",
-    "public": true
+    "public": true,
+    "comment": ""
     },
     {"title":"Pisto",
     "ingredients": ["1 onion", "1 green pepper", "1 red pepper", "1 zuchinni", "1 eggplant", "1 large can of diced tomatoes", "olive oil", "salt", "pepper", "Optional: eggs"],
@@ -45,7 +48,8 @@
     "level": "Easy",
     "cuisine": "Spanish",
     "dishType": "Side dish",
-    "public": true
+    "public": true,
+    "comment": ""
     },
     {"title":"Pipirrana",
     "ingredients": ["1 cucumber", "1 green pepper", "1 spring/ sweet onion", "2 tomatoes","salt", "olive oil", "white vinegar", "Optional: octopus, shrimps, surimi/crab sticks, or mussels"],
@@ -56,8 +60,9 @@
     "dietRestriction": ["Gluten-free"],
     "level": "Easy",
     "cuisine": "Spanish",
-    "dishType": "Salad",
-    "public": true
+    "dishType": "Salad",  
+    "public": true,
+    "comment": ""
     }
 
 ]
