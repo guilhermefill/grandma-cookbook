@@ -76,7 +76,8 @@ router.post("/login", (req, res) => {
       });
       return;
     } else if (bcryptjs.compareSync(password, user.password)) {
-      res.render("user-views/my-cookbook");
+      req.session.currentUser = user;
+      res.redirect("/my-cookbook");
     }
   });
 });
