@@ -16,7 +16,8 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: true,
-    }
+    },
+    cookbook:[{type: Schema.Types.ObjectId, ref:'Recipe'}]
   },
   {
     timestamps: true,
