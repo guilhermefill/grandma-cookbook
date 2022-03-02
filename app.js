@@ -8,12 +8,30 @@ require("./db");
 // Handles http requests (express is node js framework)
 // https://www.npmjs.com/package/express
 const express = require("express");
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
 
 // Handles the handlebars
 // https://www.npmjs.com/package/hbs
 const hbs = require("hbs");
 
 const app = express();
+
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
+
+app.use(session({
+    secret: 'keyboardcat',
+    resave: true,
+    saveUninitialized: false,
+    cookie: {
+        httpOnly: true
+    },
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGODB_URI,
+        ttl: 60 * 60 * 24
+    })
+}));
 
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config")(app);
