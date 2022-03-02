@@ -1,5 +1,8 @@
 const router = require("express").Router();
 
+
+const isLoggedIn = require('./user.routes')
+
 router.get("/search", (_, res) => {
   res.render("recipe-views/search");
 });
