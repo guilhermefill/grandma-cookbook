@@ -2,21 +2,24 @@
 <div id="form">
 
   <form action="/signup" method="POST">
- 
+
     <label> User name
       <input type="text" name="username" placeholder="Cook name" />
     </label>
- 
+
     <label> Email
       <input type="email" name="email" placeholder="home@cook.com" />
     </label>
- 
+
     <label> Password
       <input type="password" name="password" placeholder="********" />
     </label>
- 
+
     <button type="submit">Create account</button>
-  
+
+    {{#if errorMessage}}
+    <p class="error">{{errorMessage}}</p>
+    {{/if}}
   </form>
   <a href="/login">Login</a>
 </div>
