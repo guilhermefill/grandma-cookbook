@@ -1,4 +1,7 @@
 const router = require("express").Router();
+const Recipe = require('../models/Recipe.model');
+
+
 
 const isLoggedIn = (req, res, next) => {
   if (!req.session.currentUser) {
@@ -6,15 +9,15 @@ const isLoggedIn = (req, res, next) => {
   } else {
     next();
   }
-}
+};
 
-router.get("/main", (_req, res) => {
-  res.render("user-views/main");
+
+
+router.get("/my-cookbook",isLoggedIn, (req, res) => {
+
+  Recipe.find()
+    .then(recipes => res.render("user-views/my-cookbook", { recipes }) )
+    .catch(error => console.log(error));
 });
-
-router.get("/my-cookbook",isLoggedIn, (_req, res) => {
-  res.render("user-views/my-cookbook");
-});
-
 
 module.exports = router;

@@ -17,7 +17,7 @@ router.post("/signup", (req, res, next) => {
   if (!regex.test(password)) {
     res
       .status(500)
-      .render('auth/signup', { errorMessage: 'Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter.' });
+      .render('auth/signup', { errorMessage: 'Your password needs at least 6 chars and least one number, one lowercase and one uppercase letter.' });
     return;
   }
 
@@ -48,7 +48,7 @@ router.post("/signup", (req, res, next) => {
         res.status(500).render("auth/signup", { errorMessage: error.message });
       } else if (error.code === 11000) {
         res.status(500).render('auth/signup', {
-           errorMessage: 'Username and email need to be unique. Either username or email is already used.'
+           errorMessage: 'User name and email need to be unique. Either user name or email is already used.'
         });
       } else {
         next(error);
@@ -62,7 +62,6 @@ router.get("/login", (_, res) => {
 
 router.post("/login", (req, res) => {
   const { username, password } = req.body;
-  //  console.log('SESSION =====> ', req.session);
   if (username == "" || password == "") {
     res.render("auth/login", {
       errorMessage: "Please enter both user name and password to log in.",

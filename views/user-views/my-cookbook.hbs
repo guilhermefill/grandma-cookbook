@@ -1,1 +1,17 @@
 <h1>My cookbook</h1>
+<hr>
+<div class="row">
+  {{#each recipes}}
+    <div class="column">
+      <div class="card">
+        <img src="{{imageUrl}}" class="card-img-top" alt="{{title}}">
+        <div class="card-body">
+          <h5 class="card-title">{{title}}</h5>
+          <p class="card-text">{{shortDescription}}</p>
+        </div>
+      </div>
+    </div>
+  {{else}}
+    <p>There are no recipes!</p>
+  {{/each}}
+</div>
