@@ -20,3 +20,7 @@ nav ul {
   width: 100%;
   justify-content: space-around;
 }
+
+datalist {
+  display: flex;
+}
