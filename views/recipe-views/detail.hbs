@@ -1,2 +1,15 @@
 <h1>Recipe detail</h1>
 
+<h2>{{title}}</h2>
+<img src="{{imageUrl}}" class="card-img-top" alt="{{title}}">
+<p>{{creator.0.username}}</p>
+<p>{{level}}</p>
+<p>{{cuisine}}</p>
+<p>{{dietRestriction}}</p>
+<p>{{shortDescription}}</p>
+<ul>
+{{#each ingredients}}
+<li>{{this}}</li>
+{{/each}}
+</ul>
+<p>{{cookingSteps}}</p>
