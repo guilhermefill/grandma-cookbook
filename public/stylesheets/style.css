@@ -29,3 +29,6 @@ nav ul {
   justify-content: space-around;
 }
 
+datalist {
+  display: flex;
+}
