@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const bcryptjs = require("bcryptjs");
 const saltRounds = 10;
 
@@ -17,7 +17,10 @@ router.post("/signup", (req, res, next) => {
   if (!regex.test(password)) {
     res
       .status(500)
-      .render('auth/signup', { errorMessage: 'Your password needs at least 6 chars and least one number, one lowercase and one uppercase letter.' });
+      .render("auth/signup", {
+        errorMessage:
+          "Your password needs at least 6 chars and least one number, one lowercase and one uppercase letter.",
+      });
     return;
   }
 
@@ -47,8 +50,9 @@ router.post("/signup", (req, res, next) => {
       if (error instanceof mongoose.Error.ValidationError) {
         res.status(500).render("auth/signup", { errorMessage: error.message });
       } else if (error.code === 11000) {
-        res.status(500).render('auth/signup', {
-           errorMessage: 'User name and email need to be unique. Either user name or email is already used.'
+        res.status(500).render("auth/signup", {
+          errorMessage:
+            "User name and email need to be unique. Either user name or email is already used.",
         });
       } else {
         next(error);
