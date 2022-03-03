@@ -25,7 +25,7 @@ router.post('/search', (req, res) => {
   } else if (dietType !== "" && level !== "") {
     Recipe.find({ $and: [{ dietRestriction: dietType }, { $text: { $search: JSON.stringify(searchValue) } }, { level: level }] })
       .then(foundRecipe => {
-        if (foundRecipe.lenght === 0) {
+        if (foundRecipe.length === 0) {
           res.render('recipe-views/search-result', { errorMessage: "Nothing was found" })
         } else {
           res.render('recipe-views/search-result', { recipes: foundRecipe })
@@ -35,7 +35,7 @@ router.post('/search', (req, res) => {
   } else if (level !== "") {
     Recipe.find({ $and: [{ level: level }, { $text: { $search: JSON.stringify(searchValue) } }] })
       .then(foundRecipe => {
-        if (foundRecipe.lenght === 0) {
+        if (foundRecipe.length === 0) {
           res.render('recipe-views/search-result', { errorMessage: "Nothing was found" })
         } else {
           res.render('recipe-views/search-result', { recipes: foundRecipe })
@@ -45,7 +45,7 @@ router.post('/search', (req, res) => {
   } else if (dietType !== "") {
     Recipe.find({ $and: [{ dietRestriction: dietType }, { $text: { $search: JSON.stringify(searchValue) } }] })
       .then(foundRecipe => {
-        if (foundRecipe.lenght === 0) {
+        if (foundRecipe.length === 0) {
           res.render('recipe-views/search-result', { errorMessage: "Nothing was found" })
         } else {
           res.render('recipe-views/search-result', { recipes: foundRecipe })
@@ -55,7 +55,7 @@ router.post('/search', (req, res) => {
   } else {
     Recipe.find({ $text: { $search: JSON.stringify(searchValue) } })
       .then(foundRecipe => {
-        if (foundRecipe.lenght === 0) {
+        if (foundRecipe.length === 0) {
           res.render('recipe-views/search-result', { errorMessage: "Nothing was found" })
         } else {
           res.render('recipe-views/search-result', { recipes: foundRecipe })
