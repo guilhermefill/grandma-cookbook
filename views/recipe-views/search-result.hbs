@@ -1,1 +1,21 @@
 <h1>search result</h1>
+{{#if errorMessage}}
+<div class="nothing-found">
+    {{errorMessage}}
+</div>
+{{else}}
+<div class="row">
+    {{#each recipes}}
+    <div class="column">
+        <div class="card">
+            <img src="{{imageUrl}}" class="card-img-top" alt="{{title}}">
+            <div class="card-body">
+                <h5 class="card-title">{{title}}</h5>
+                <p class="card-text">{{shortDescription}}</p>
+                <a href="/recipe/detail/{{_id}}">View details</a>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>
+{{/if}}

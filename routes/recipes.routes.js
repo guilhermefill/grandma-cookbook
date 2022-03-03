@@ -63,10 +63,6 @@ router.post('/search', (req, res) => {
       })
       .catch(error => console.log(error));
   }
-})
-
-router.get("/search-result", isLoggedIn, (_, res) => {
-  res.render("recipe-views/search-result");
 });
 
 router.get("/create", isLoggedIn, (_, res) => {
