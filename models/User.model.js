@@ -19,7 +19,11 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    cookbook:[{type: Schema.Types.ObjectId, ref:'Recipe'}]
+    cookbook:[{type: Schema.Types.ObjectId, ref:'Recipe'}],
+    avatar: {
+      type: String,
+      default: "https://i.imgur.com/O5ZaDSM.png"
+    }
   },
   {
     timestamps: true,

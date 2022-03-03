@@ -39,7 +39,6 @@ router.get("/discover", isLoggedIn, (req, res) => {
 
 router.get("/my-cookbook", isLoggedIn, (req, res) => {
   const user = req.session.currentUser;
-  console.log(user.cookbook);
   if (user.cookbook.length === 0) {
     res.redirect("/discover");
   } else {
@@ -52,6 +51,12 @@ router.get("/my-cookbook", isLoggedIn, (req, res) => {
       })
       .catch((error) => console.log(error));
   }
+});
+
+router.get('/profile', isLoggedIn, (req, res) => {
+  const user = req.session.currentUser;
+  res.render('user-views/profile', user)
+  console.log(user)
 });
 
 module.exports = router;
