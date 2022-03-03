@@ -65,15 +65,21 @@ router.post('/search', (req, res) => {
   }
 });
 
-router.get("/create", isLoggedIn, (_, res) => {
+router.get("/create", isLoggedIn, (req, res) => {
   res.render("recipe-views/create");
 });
 
-router.get("/detail/:id", isLoggedIn, (_, res) => {
-  res.render("recipe-views/detail");
+router.get("/detail/:id", isLoggedIn, (req, res) => {
+  const { id } = req.params;
+  Recipe.findById(id).populate('creator')
+    .then(recipe => {
+      console.log(recipe.creator)
+      res.render("recipe-views/detail", recipe);
+    })
+    .catch(error => console.log(error));
 });
 
-router.get("/edit/:id", isLoggedIn, (_, res) => {
+router.get("/edit/:id", isLoggedIn, (req, res) => {
   res.render("recipe-views/edit");
 });
 
