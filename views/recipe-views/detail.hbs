@@ -18,7 +18,7 @@
 <a href="/recipe/edit/{{recipe._id}}"><button>Edit this recipe</button></a>
 <a href="/recipe/delete/{{recipe._id}}"><button>Delete this recipe</button></a>
 {{else}}
-<a href="/add-recipe/{{recipe._id}}"><button>Add to my cookbook</button></a>
+<form action="/recipe/add-to-cookbook/{{recipe._id}}" method="post"><button type="submit">Add to my cookbook</button></form>
 
 {{/if}}
 
@@ -27,3 +27,10 @@
     <form action="/recipe/add-note/{{recipe._id}}" method="post" id="comment-box">
     </form>
 </div>
+{{#each note}}
+<p>{{this.notes}}</p>
+<form action="/recipe/delete-note/{{../recipe._id}}" method="post">
+<input type="hidden" name="noteId" value="{{this._id}}">
+<button type="submit">Delete note</button>
+</form>
+{{/each}}

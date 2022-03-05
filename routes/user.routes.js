@@ -39,16 +39,13 @@ router.get("/discover", isLoggedIn, (req, res) => {
 
 router.get("/my-cookbook", isLoggedIn, (req, res) => {
   const user = req.session.currentUser;
-  console.log(user.cookbook);
   if (user.cookbook.length === 0) {
     res.redirect("/discover");
   } else {
-    Recipe.find({
-      _id: { $in: user.cookbook },
-    })
-      .populate("creator")
-      .then((recipes) => {
-        res.render("user-views/my-cookbook", { recipes });
+    User.findById(user._id)
+      .populate("cookbook")
+      .then((userRecipes) => {
+        res.render("user-views/my-cookbook", { recipes: userRecipes.cookbook});
       })
       .catch((error) => console.log(error));
   }
