@@ -1,15 +1,29 @@
 <h1>Recipe detail</h1>
 
-<h2>{{title}}</h2>
-<img src="{{imageUrl}}" class="card-img-top" alt="{{title}}">
-<p>{{creator.0.username}}</p>
-<p>{{level}}</p>
-<p>{{cuisine}}</p>
-<p>{{dietRestriction}}</p>
-<p>{{shortDescription}}</p>
+<h2>{{recipe.title}}</h2>
+<img src="{{recipe.imageUrl}}" class="card-img-top" alt="{{recipe.title}}">
+<p>{{recipe.creator.0.username}}</p>
+<p>{{recipe.level}}</p>
+<p>{{recipe.cuisine}}</p>
+<p>{{recipe.dietRestriction}}</p>
+<p>{{recipe.shortDescription}}</p>
 <ul>
-{{#each ingredients}}
-<li>{{this}}</li>
-{{/each}}
+    {{#each recipe.ingredients}}
+    <li>{{this}}</li>
+    {{/each}}
 </ul>
-<p>{{cookingSteps}}</p>
+<p>{{recipe.cookingSteps}}</p>
+
+{{#if userMatch}}
+<a href="/recipe/edit/{{_id}}"><button>Edit this recipe</button></a>
+<a href="/recipe/delete/{{_id}}"><button>Delete this recipe</button></a>
+{{else}}
+<a href="/add-recipe/{{_id}}"><button>Add to my cookbook</button></a>
+
+{{/if}}
+
+<button id="add-comment-btn">Add a comment</button>
+<div>
+    <form action="/recipe/add-comment/{{recipe._id}}" method="post" id="comment-box">
+    </form>
+</div>
