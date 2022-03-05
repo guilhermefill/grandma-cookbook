@@ -72,31 +72,16 @@ router.get("/create", isLoggedIn, (req, res) => {
 router.get("/detail/:id", isLoggedIn, (req, res) => {
   const user = req.session.currentUser;
   const { id } = req.params;
-  Recipe.findById(id).populate('creator').populate('comments.author')
+  Recipe.findById(id).populate('creator')
     .then(recipe => {
       if (user.username === recipe.creator[0].username) {
-        res.render("recipe-views/detail", { recipe: recipe, userMatch: true }); 
+        res.render("recipe-views/detail", { recipe: recipe, userMatch: true });
       } else {
         res.render("recipe-views/detail", { recipe: recipe }); //TODO add a else if for if user comment creator === user view comments
       }
     })
     .catch(error => console.log(error));
 });
-
-router.post('/add-comment/:id', isLoggedIn, (req, res) => {
-  const user = req.session.currentUser;
-  const { id } = req.params;
-  const { title, comment } = req.body;
-  const update = { author: user._id, title, comment }
-  if (title !== '' && comment !== '') {
-    Recipe.findByIdAndUpdate(id, { $push: { comments: update } })
-      .then(recipe => res.redirect(`/recipe/detail/${recipe._id}`))
-      .catch(error => console.log(error));
-  } else {
-    res.redirect(`/recipe/detail/${id}`);
-  }
-
-})
 
 router.get("/edit/:id", isLoggedIn, (req, res) => {
   res.render("recipe-views/edit");

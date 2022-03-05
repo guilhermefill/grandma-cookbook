@@ -19,17 +19,11 @@
 <a href="/recipe/delete/{{_id}}"><button>Delete this recipe</button></a>
 {{else}}
 <a href="/add-recipe/{{_id}}"><button>Add to my cookbook</button></a>
+
+{{/if}}
+
 <button id="add-comment-btn">Add a comment</button>
 <div>
     <form action="/recipe/add-comment/{{recipe._id}}" method="post" id="comment-box">
     </form>
 </div>
-{{/if}}
-
-{{#each recipe.comments}}
-<div class="comment-container">
-    <h3>{{this.title}}</h3>
-    <p>{{this.author.0.username}}</p>
-    <p>{{this.comment}}</p>
-</div>
-{{/each}}

@@ -38,10 +38,7 @@ const recipeSchema = new Schema({
   //   min: 0
   // },
   public: Boolean,
-  comments: [{
-    author: [{type: Schema.Types.ObjectId, ref: 'User'}], 
-    comment: String
-  }] //mixedobjectId from mongodb or create an object with different keys and types. check with mongoose documentation how to save an object inside schema
+  //mixedobjectId from mongodb or create an object with different keys and types. check with mongoose documentation how to save an object inside schema
 },
 {
     timestamps: true
