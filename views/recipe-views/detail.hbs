@@ -27,6 +27,7 @@
     <form action="/recipe/add-note/{{recipe._id}}" method="post" id="comment-box">
     </form>
 </div>
+
 {{#each note}}
 <p>{{this.notes}}</p>
 <form action="/recipe/delete-note/{{../recipe._id}}" method="post">

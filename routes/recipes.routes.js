@@ -79,7 +79,7 @@ router.get("/detail/:id", isLoggedIn, async (req, res) => {
     if (user.username === recipe.creator[0].username) {
       res.render("recipe-views/detail", { recipe: recipe, userMatch: true, note: foundNotes });
     } else {
-      res.render("recipe-views/detail", { recipe: recipe, notes: foundNotes });
+      res.render("recipe-views/detail", { recipe: recipe, note: foundNotes });
     }
   } catch (error) {
     console.log(error)
