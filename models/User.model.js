@@ -22,7 +22,7 @@ const userSchema = new Schema(
     cookbook:[{type: Schema.Types.ObjectId, ref:'Recipe'}],
     avatar: {
       type: String,
-      default: "https://i.imgur.com/O5ZaDSM.png"
+      default: "https://i.imgur.com/VVDEmog.png"
     }
   },
   {

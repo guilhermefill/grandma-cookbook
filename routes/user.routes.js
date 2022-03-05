@@ -53,10 +53,29 @@ router.get("/my-cookbook", isLoggedIn, (req, res) => {
   }
 });
 
-router.get('/profile', isLoggedIn, (req, res) => {
+router.get("/profile", isLoggedIn, (req, res) => {
   const user = req.session.currentUser;
-  res.render('user-views/profile', user)
-  console.log(user)
+  res.render("user-views/profile", user);
+});
+
+  router.post("/profile/delete", (req, res) => {
+    const userID = req.session.currentUser._id;
+
+    User.findByIdAndDelete(userID)
+      .then(() => res.redirect("/signup"))
+      .catch((error) => next(error));
+  });
+
+router.post("/profile/edit", (req, res) => {
+  const userID = req.session.currentUser._id;
+
+  User.findByIdAndUpdate(userID, { avatar, username, email })
+    .then(() =>
+      res.render("/profile", {
+        confirmationMessage: "User information updated",
+      })
+    )
+    .catch((error) => console.log(error));
 });
 
 module.exports = router;
