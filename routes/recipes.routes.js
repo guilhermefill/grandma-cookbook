@@ -23,7 +23,7 @@ router.post('/search', (req, res) => {
   if (searchValue === "") {
     res.render("recipe-views/search", { errorMessage: "Please provide a search value" })
   } else if (dietType !== "" && level !== "") {
-    Recipe.find({ $and: [{ dietRestriction: dietType }, { $text: { $search: JSON.stringify(searchValue) } }, { level: level }] })
+    Recipe.find({ $and: [{ dietRestriction: dietType }, { $text: { $search: JSON.stringify(searchValue) } }, { level: level }, { public: true }] })
       .then(foundRecipe => {
         if (foundRecipe.length === 0) {
           res.render('recipe-views/search-result', { errorMessage: "Nothing was found" })
@@ -33,7 +33,7 @@ router.post('/search', (req, res) => {
       })
       .catch(error => console.log(error));
   } else if (level !== "") {
-    Recipe.find({ $and: [{ level: level }, { $text: { $search: JSON.stringify(searchValue) } }] })
+    Recipe.find({ $and: [{ level: level }, { $text: { $search: JSON.stringify(searchValue) } }, { public: true }] })
       .then(foundRecipe => {
         if (foundRecipe.length === 0) {
           res.render('recipe-views/search-result', { errorMessage: "Nothing was found" })
@@ -43,7 +43,7 @@ router.post('/search', (req, res) => {
       })
       .catch(error => console.log(error));
   } else if (dietType !== "") {
-    Recipe.find({ $and: [{ dietRestriction: dietType }, { $text: { $search: JSON.stringify(searchValue) } }] })
+    Recipe.find({ $and: [{ dietRestriction: dietType }, { $text: { $search: JSON.stringify(searchValue) } }, { public: true }] })
       .then(foundRecipe => {
         if (foundRecipe.length === 0) {
           res.render('recipe-views/search-result', { errorMessage: "Nothing was found" })
@@ -53,7 +53,7 @@ router.post('/search', (req, res) => {
       })
       .catch(error => console.log(error));
   } else {
-    Recipe.find({ $text: { $search: JSON.stringify(searchValue) } })
+    Recipe.find({ $and: [{ $text: { $search: JSON.stringify(searchValue) } }, { public: true }] })
       .then(foundRecipe => {
         if (foundRecipe.length === 0) {
           res.render('recipe-views/search-result', { errorMessage: "Nothing was found" })
