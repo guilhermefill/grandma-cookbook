@@ -81,6 +81,10 @@ router.post("/login", (req, res) => {
     } else if (bcryptjs.compareSync(password, user.password)) {
       req.session.currentUser = user;
       res.redirect("/my-cookbook");
+    } else {
+      res.render("auth/login", {
+        errorMessage: "Either user or password are not correct!",
+      });
     }
   });
 });
