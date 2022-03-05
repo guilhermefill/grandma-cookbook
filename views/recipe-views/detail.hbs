@@ -15,15 +15,15 @@
 <p>{{recipe.cookingSteps}}</p>
 
 {{#if userMatch}}
-<a href="/recipe/edit/{{_id}}"><button>Edit this recipe</button></a>
-<a href="/recipe/delete/{{_id}}"><button>Delete this recipe</button></a>
+<a href="/recipe/edit/{{recipe._id}}"><button>Edit this recipe</button></a>
+<a href="/recipe/delete/{{recipe._id}}"><button>Delete this recipe</button></a>
 {{else}}
-<a href="/add-recipe/{{_id}}"><button>Add to my cookbook</button></a>
+<a href="/add-recipe/{{recipe._id}}"><button>Add to my cookbook</button></a>
 
 {{/if}}
 
-<button id="add-comment-btn">Add a comment</button>
+<button id="add-comment-btn">Add a note</button>
 <div>
-    <form action="/recipe/add-comment/{{recipe._id}}" method="post" id="comment-box">
+    <form action="/recipe/add-note/{{recipe._id}}" method="post" id="comment-box">
     </form>
 </div>
