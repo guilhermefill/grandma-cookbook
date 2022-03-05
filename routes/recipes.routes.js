@@ -70,11 +70,15 @@ router.get("/create", isLoggedIn, (req, res) => {
 });
 
 router.get("/detail/:id", isLoggedIn, (req, res) => {
+  const user = req.session.currentUser;
   const { id } = req.params;
   Recipe.findById(id).populate('creator')
     .then(recipe => {
-      console.log(recipe.creator)
-      res.render("recipe-views/detail", recipe);
+      if(user.username === recipe.creator[0].username) {
+        res.render("recipe-views/detail", {recipe: recipe, userMatch:true});
+      } else {
+        res.render("recipe-views/detail", {recipe: recipe});
+      }
     })
     .catch(error => console.log(error));
 });
