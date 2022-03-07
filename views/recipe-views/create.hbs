@@ -1,68 +1,89 @@
-{{!--
-<script src="/js/create-recipe.js"></script>
-
-1: Basic information: name, short description, dish type, cuisine, diet restrictions, level
-2: ingredients
-3: cooking steps
-4: Photo
-5: public
-
-
- --}}
-
 <h1>Add a new recipe</h1>
-<form action="/create-recipe" method="post" enctype="multipart/form-data">
+<div class="container">
+    <form action="/create-recipe" method="post" enctype="multipart/form-data">
 
-    <h3>Photo</h3>
-    <div>
-        <img class="recipe-img" src="{{this.imageUrl}}">
+        <div id="first-box">
+            <h4>Name of your recipe</h4>
+            <input type="text" name="name">
+            <h4>Short description</h4>
+            <input type="text" name="description" maxlength="100">
+            <h4>Type of dish</h4>
+            <div>
+                <label>
+                    <select name="type-of-dish">
+                        <option value="Appetizer">Appetizer</option>
+                        <option value="Breakfast">Breakfast</option>
+                        <option value="Dessert">Dessert</option>
+                        <option value="Drink">Drink</option>
+                        <option value="Main course">Main course</option>
+                        <option value="Salad">Salad</option>
+                        <option value="Sauce">Sauce</option>
+                        <option value="Side dish">Side dish</option>
+                        <option value="Snack">Snack</option>
+                        <option value="Soup">Soup</option>
+                        <option value="Starter">Starter</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </label>
+            </div>
+            <h4>Diet restrictions</h4>
+            <div>
+                <input type="checkbox" name="vegan" value="vegan">
+                <label for="vegan">Vegan</label>
+                <input type="checkbox" name="vegetarian" value="vegetarian">
+                <label for="vegetarian">Vegetarian</label>
+                <input type="checkbox" name="gluten-free" value="gluten-free">
+                <label for="gluten-free">Gluten-free</label>
+            </div>
+            <h4>Level</h4>
+            <div>
+                <label>
+                    <select name="level">
+                        <option value=""></option>
+                        <option value="Easy">Easy</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Fancy">Fancy</option>
+                    </select>
+                </label>
+            </div>
+            <button class="btn" name="to-second-box-btn">Next step</button>
+        </div>
+
+        <div id="second-box">
+            <h3>Ingredients</h3>
+            <div id="add-new-ingredient">
+                <input type="text" placeholder="Add your ingredients here">
+            </div>
+            <div id="ingredient-list">
+            </div>
+            <button class="btn" name="to-third-box-btn">Go back</button>
+            <button class="btn" name="to-first-box-btn">Next step</button>
+        </div>
+
+        <div id="third-box">
+            <h3>Cooking steps</h3>
+            <div id="add-new-step">
+                <input type="text" placeholder="Add your cooking steps here">
+            </div>
+            <button class="btn" name="to-second-box-btn">Go back</button>
+            <button class="btn" name="to-fourth-box-btn">Next step</button>
+        </div>
+
+        <div id="fourth-box">
+        <h3>Picture</h3>
+        <div>
+            <img class="recipe-img" src="{{this.imageUrl}}">
+            <br>
+            <input type="file" name="picture">
+            <h6>Upload a photo of your dish</h6>
+        </div>
+        <h4>Do you wanna hare your recipe?</h4>
+        <input type="checkbox" name="public" value="public">
+        <label for="public"> I want to share this recipe with the community</label>
+        <button class="btn" name="to-third-box-btn">Go back</button>
+    </div>
+
         <br>
-        <input type="file">
-        <h6>Upload a photo</h6>
-    </div>
-
-    <h3>Ingredients</h3>
-
-    <div id="add-new-ingredient">
-        <input type="text" placeholder="Add your ingredients here">
-    </div>
-
-    <div id="ingredient-list">
-    </div>
-
-    <h3>Cooking steps</h3>
-    <div id="add-new-step">
-        <input type="text" placeholder="Add your cooking steps here">
-    </div>
-
-    <div id="ingredient-list">
-    </div>
-
-    <h3>Diet restrictions</h3>
-    <div>
-         <input type="checkbox" name="vegan" value="vegan">
-    <label for="vegan">Vegan</label>
-    <input type="checkbox" name="vegetarian" value="vegetarian">
-    <label for="vegetarian">Vegetarian</label>
-    <input type="checkbox" name="gluten-free" value="gluten-free">
-    <label for="gluten-free">Gluten-free</label>
-    </div>
-
-    <h3>Level</h3>
-    <div>
-        <label>
-            <select name="level">
-                <option value=""></option>
-                <option value="Easy">Easy</option>
-                <option value="Medium">Medium</option>
-                <option value="Fancy">Fancy</option>
-            </select>
-        </label>
-    </div>
-
-    <h3>Share your recipe</h3>
-    <input type="checkbox" name="public" value="public">
-    <label for="public"> I want to share this recipe with the community</label>
-    <br>
-    <button type="submit" class="btn btn-primary">Save my recipe</button>
-</form>
+        <button id="submit-btn" type="submit" class="btn btn-primary">Save my recipe</button>
+    </form>
+</div>
