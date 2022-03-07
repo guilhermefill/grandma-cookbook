@@ -1,2 +1,68 @@
-<h1>Create recipe</h1>
+{{!--
+<script src="/js/create-recipe.js"></script>
 
+1: Basic information: name, short description, dish type, cuisine, diet restrictions, level
+2: ingredients
+3: cooking steps
+4: Photo
+5: public
+
+
+ --}}
+
+<h1>Add a new recipe</h1>
+<form action="/create-recipe" method="post" enctype="multipart/form-data">
+
+    <h3>Photo</h3>
+    <div>
+        <img class="recipe-img" src="{{this.imageUrl}}">
+        <br>
+        <input type="file">
+        <h6>Upload a photo</h6>
+    </div>
+
+    <h3>Ingredients</h3>
+
+    <div id="add-new-ingredient">
+        <input type="text" placeholder="Add your ingredients here">
+    </div>
+
+    <div id="ingredient-list">
+    </div>
+
+    <h3>Cooking steps</h3>
+    <div id="add-new-step">
+        <input type="text" placeholder="Add your cooking steps here">
+    </div>
+
+    <div id="ingredient-list">
+    </div>
+
+    <h3>Diet restrictions</h3>
+    <div>
+         <input type="checkbox" name="vegan" value="vegan">
+    <label for="vegan">Vegan</label>
+    <input type="checkbox" name="vegetarian" value="vegetarian">
+    <label for="vegetarian">Vegetarian</label>
+    <input type="checkbox" name="gluten-free" value="gluten-free">
+    <label for="gluten-free">Gluten-free</label>
+    </div>
+
+    <h3>Level</h3>
+    <div>
+        <label>
+            <select name="level">
+                <option value=""></option>
+                <option value="Easy">Easy</option>
+                <option value="Medium">Medium</option>
+                <option value="Fancy">Fancy</option>
+            </select>
+        </label>
+    </div>
+
+    <h3>Share your recipe</h3>
+    <input type="checkbox" name="public" value="public">
+    <label for="public"> I want to share this recipe with the community</label>
+    <br>
+    <button type="submit" class="btn btn-primary">Save my recipe</button>
+</form>
