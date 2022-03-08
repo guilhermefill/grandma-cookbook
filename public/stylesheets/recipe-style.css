@@ -1,5 +1,5 @@
 .form {
-    width: clamp(50%, 30%, 60%);
+    width: clamp(60%, 30%, 70%);
     margin: 0 auto;
     border: 1px solid #ccc;
     border-radius: .35rem;
