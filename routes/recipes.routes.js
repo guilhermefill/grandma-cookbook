@@ -77,7 +77,6 @@ router.get("/detail/:id", isLoggedIn, async (req, res) => {
     const foundNotes = await Note.find({ $and: [{ user: user._id }, { recipe: id }] });
     const recipe = await Recipe.findById(id).populate('creator');
     const userCookbook = await User.findById(user._id)
-    console.log(userCookbook.cookbook.includes(id))
     if (user.username === recipe.creator[0].username) {
       res.render("recipe-views/detail", { recipe: recipe, userMatch: true, note: foundNotes });
     } else if (userCookbook.cookbook.includes(id)) {
