@@ -48,9 +48,24 @@ router.get("/my-cookbook", isLoggedIn, (req, res) => {
     User.findById(user._id)
       .populate("cookbook")
       .then((userRecipes) => {
-        res.render("user-views/my-cookbook", { recipes: userRecipes.cookbook});
+        res.render("user-views/my-cookbook", { recipes: userRecipes.cookbook });
       })
       .catch((error) => console.log(error));
+  }
+});
+
+router.post('/my-cookbook', isLoggedIn, async (req, res) => {
+  const { dietType, dishLevel, type, creator } = req.body;
+  const user = req.session.currentUser;
+  try {
+    const foundUser = await User.findById(user._id).populate('cookbook')
+    const cookbook = foundUser.cookbook
+    if(dietType !== "") {
+      const filterDiet = cookbook.filter(x => x.dietRestriction.includes(dietType))
+      res.render('user-views/my-cookbook', {recipes: filterDiet})
+    }
+  } catch (error) {
+    console.log(error);
   }
 });
 
@@ -95,18 +110,18 @@ router.post('/profile/update-password', (req, res) => {
   const { currentPassword, newPassword } = req.body
 
   User.findById(userID)
-  .then((user) => {
-    if (bcryptjs.compare(currentPassword, user.password)) {
-      bcryptjs.genSalt(saltRounds)
-      .then((salt) => bcryptjs.hash(newPassword, salt))
-      .then((hashedPassword) => {
-        return User.findByIdAndUpdate(userID, {password: hashedPassword})
-      })
-        .catch(error => console.log(error))
-    }
-  })
-  .then(res.redirect('/my-cookbook'))
-  .catch(error => console.log(error))
+    .then((user) => {
+      if (bcryptjs.compare(currentPassword, user.password)) {
+        bcryptjs.genSalt(saltRounds)
+          .then((salt) => bcryptjs.hash(newPassword, salt))
+          .then((hashedPassword) => {
+            return User.findByIdAndUpdate(userID, { password: hashedPassword })
+          })
+          .catch(error => console.log(error))
+      }
+    })
+    .then(res.redirect('/my-cookbook'))
+    .catch(error => console.log(error))
 
 })
 
