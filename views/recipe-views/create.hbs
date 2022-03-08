@@ -1,16 +1,26 @@
 <h1>Add a new recipe</h1>
 <div class="container">
-    <form action="/create-recipe" method="post" enctype="multipart/form-data">
+    <form action="" method="post" enctype="multipart/form-data" class="form">
 
-        <div id="first-box">
-            <h4>Name of your recipe</h4>
-            <input type="text" name="name">
-            <h4>Short description</h4>
-            <input type="text" name="description" maxlength="100">
-            <h4>Type of dish</h4>
+    <div class="progressbar">
+        <div class="progress" id="progress"></div>
+        <div class="progress-step progress-step-active" data-title="Basic info"></div>
+        <div class="progress-step" data-title="Ingredients"></div>
+        <div class="progress-step" data-title="Cooking Steps"></div>
+        <div class="progress-step" data-title="Picture"></div>
+    </div>
+
+        <div class="form-step form-step-active">
+            <label for="title">Name of your recipe</label>
+            <input type="text" name="title" id="title">
+            <br>
+             <label for="description">Short description</label>
+            <textarea name="description" id="description" maxlength="100" cols="50" rows="3"></textarea>
+            <br>
+            <label>Type of dish</label>
             <div>
-                <label>
-                    <select name="type-of-dish">
+                <label for="type-of-dish">
+                    <select name="type-of-dish" id="title">
                         <option value="Appetizer">Appetizer</option>
                         <option value="Breakfast">Breakfast</option>
                         <option value="Dessert">Dessert</option>
@@ -26,50 +36,50 @@
                     </select>
                 </label>
             </div>
-            <h4>Diet restrictions</h4>
+            <label for="diet-restrictions">Diet restrictions</label>
             <div>
-                <input type="checkbox" name="vegan" value="vegan">
+                <input type="checkbox" name="vegan" value="vegan" id="vegan">
                 <label for="vegan">Vegan</label>
-                <input type="checkbox" name="vegetarian" value="vegetarian">
+                <input type="checkbox" name="vegetarian" value="vegetarian" id="vegetarian">
                 <label for="vegetarian">Vegetarian</label>
-                <input type="checkbox" name="gluten-free" value="gluten-free">
+                <input type="checkbox" name="gluten-free" value="gluten-free" id="gluten-free">
                 <label for="gluten-free">Gluten-free</label>
             </div>
-            <h4>Level</h4>
+            <label for="level">Level</label>
             <div>
                 <label>
-                    <select name="level">
+                    <select name="level" id="level">
                         <option value=""></option>
                         <option value="Easy">Easy</option>
                         <option value="Medium">Medium</option>
                         <option value="Fancy">Fancy</option>
                     </select>
                 </label>
-            </div>
-            <button class="btn" name="to-second-box-btn">Next step</button>
+            </div>         
+            <button type="button" class="btn btn-next">Next step</button>
         </div>
 
-        <div id="second-box">
+        <div class="form-step">
             <h3>Ingredients</h3>
             <div id="add-new-ingredient">
-                <input type="text" placeholder="Add your ingredients here">
+                <textarea type="text" name="ingredients" id="ingredients" placeholder="Add your ingredients here" cols="50" rows="10"></textarea>
             </div>
             <div id="ingredient-list">
             </div>
-            <button class="btn" name="to-third-box-btn">Go back</button>
-            <button class="btn" name="to-first-box-btn">Next step</button>
+            <button type="button" class="btn btn-prev">Go back</button>
+            <button type="button" class="btn btn-next">Next step</button>
         </div>
 
-        <div id="third-box">
+        <div class="form-step">
             <h3>Cooking steps</h3>
             <div id="add-new-step">
-                <input type="text" placeholder="Add your cooking steps here">
+                <textarea type="text" name="steps" id="steps" placeholder="Add your cooking steps here" cols="50" rows="10"></textarea>
             </div>
-            <button class="btn" name="to-second-box-btn">Go back</button>
-            <button class="btn" name="to-fourth-box-btn">Next step</button>
+            <button type="button" class="btn btn-prev">Go back</button>
+            <button type="button" class="btn btn-next">Next step</button>
         </div>
 
-        <div id="fourth-box">
+        <div class="form-step">
         <h3>Picture</h3>
         <div>
             <img class="recipe-img" src="{{this.imageUrl}}">
@@ -80,10 +90,9 @@
         <h4>Do you wanna hare your recipe?</h4>
         <input type="checkbox" name="public" value="public">
         <label for="public"> I want to share this recipe with the community</label>
-        <button class="btn" name="to-third-box-btn">Go back</button>
-    </div>
-
-        <br>
+        <button type="button" class="btn btn-prev">Go back</button>
         <button id="submit-btn" type="submit" class="btn btn-primary">Save my recipe</button>
+    </div>
+        
     </form>
 </div>
