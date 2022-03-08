@@ -123,8 +123,19 @@ router.post('/remove-from-cookbook/:id', isLoggedIn, (req, res) => {
     .catch(error => console.log(error));
 });
 
-router.get("/edit/:id", isLoggedIn, (req, res) => {
-  res.render("recipe-views/edit");
+router.get("/edit/:id", isLoggedIn, async (req, res) => {
+  const user = req.session.currentUser;
+  const { id } = req.params;
+  try {
+    const foundRecipe = await Recipe.findById(id).populate('creator');
+    if (user.username === foundRecipe.creator[0].username) {
+      res.render('recipe-views/edit', {recipe: foundRecipe})
+    } else {
+      res.redirect(`/recipe/detail/${id}`);
+    }
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 router.post("/delete/:id", isLoggedIn, (req, res) => {
