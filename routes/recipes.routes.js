@@ -74,10 +74,14 @@ router.get("/detail/:id", isLoggedIn, async (req, res) => {
   const user = req.session.currentUser;
   const { id } = req.params;
   try {
-    const foundNotes = await Note.find({ $and: [{ user: user._id }, { recipe: id }] })
-    const recipe = await Recipe.findById(id).populate('creator')
+    const foundNotes = await Note.find({ $and: [{ user: user._id }, { recipe: id }] });
+    const recipe = await Recipe.findById(id).populate('creator');
+    const userCookbook = await User.findById(user._id)
+    console.log(userCookbook.cookbook.includes(id))
     if (user.username === recipe.creator[0].username) {
       res.render("recipe-views/detail", { recipe: recipe, userMatch: true, note: foundNotes });
+    } else if (userCookbook.cookbook.includes(id)) {
+      res.render("recipe-views/detail", { recipe: recipe, cookbookMatch: true, note: foundNotes });
     } else {
       res.render("recipe-views/detail", { recipe: recipe, note: foundNotes });
     }
@@ -108,6 +112,14 @@ router.post('/add-to-cookbook/:id', isLoggedIn, (req, res) => {
   const user = req.session.currentUser;
   const { id } = req.params;
   User.findByIdAndUpdate(user._id, { $push: { cookbook: id } })
+    .then(() => res.redirect(`/my-cookbook`))
+    .catch(error => console.log(error));
+});
+
+router.post('/remove-from-cookbook/:id', isLoggedIn, (req, res) => {
+  const user = req.session.currentUser;
+  const { id } = req.params;
+  User.findByIdAndUpdate(user._id, { $pull: { cookbook: id } })
     .then(() => res.redirect(`/my-cookbook`))
     .catch(error => console.log(error));
 });
