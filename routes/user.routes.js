@@ -40,6 +40,28 @@ router.get("/discover", isLoggedIn, (req, res) => {
     .catch((error) => console.log(error));
 });
 
+router.post('/discover', isLoggedIn, async (req, res) => {
+  const { dietType, dishLevel, type } = req.body;
+  const user = req.session.currentUser;
+  const filters = {}
+  if (dietType !== '') {
+    filters.dietRestriction = dietType
+  }
+  if (dishLevel !== '') {
+    filters.level = dishLevel
+  }
+  if (type !== '') {
+    filters.dishType = type
+  }
+  try {
+    const foundRecipes = await Recipe.find(filters)
+    let shuffledRecipes = shuffle(foundRecipes)
+    res.render("user-views/discover", { shuffledRecipes });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 router.get("/my-cookbook", isLoggedIn, (req, res) => {
   const user = req.session.currentUser;
   if (user.cookbook.length === 0) {
