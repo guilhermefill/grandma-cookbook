@@ -1,7 +1,9 @@
-<h1>search result</h1>
+{{> navbar }}
+<h1>Search Results</h1>
 {{#if errorMessage}}
 <div class="nothing-found">
     {{errorMessage}}
+    <a href="/recipe/search"><button class="btn">Try again</button></a>
 </div>
 {{else}}
 <div class="row">
@@ -10,7 +12,7 @@
         <div class="card">
             <img src="{{imageUrl}}" class="card-img-top" alt="{{title}}">
             <div class="card-body">
-                <h class="card-title">{{title}}</h4>
+                <h4 class="card-title">{{title}}</h4>
                 <p class="card-text">{{shortDescription}}</p>
                 <p class="card-author">Recipe by {{creator.0.username}}</p>
                 <a href="/recipe/detail/{{_id}}"><button class="btn btn-primary">View details</button></a>
