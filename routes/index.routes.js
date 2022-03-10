@@ -1,8 +1,12 @@
 const router = require("express").Router();
 
 /* GET home page */
-router.get("/", (_, res) => {
-  res.render("index");
+router.get("/", (req, res) => {
+  if (req.session.currentUser) {
+    res.redirect('/my-cookbook')
+  } else {
+    res.render("index");
+  }
 });
 
 router.get('/logout', (req, res) => {

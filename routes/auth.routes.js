@@ -78,7 +78,7 @@ router.post("/login", (req, res) => {
         errorMessage: "Email or user name not registered",
       });
       return;
-    } else if (bcryptjs.compareSync(password, user.password)) {
+    } else if (bcryptjs.compare(password, user.password)) {
       req.session.currentUser = user;
       res.redirect("/my-cookbook");
     } else {
