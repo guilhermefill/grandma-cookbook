@@ -12,6 +12,12 @@
     border-radius: 5px 5px 5px 5px;
     width: 250px;
   }
+
+  .card-text {
+    margin-bottom: 1rem;
+    max-height: 50px;
+    overflow: hidden;
+  }
   
   .column {
     float: left;
