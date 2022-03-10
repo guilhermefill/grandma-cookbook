@@ -10,9 +10,10 @@
         <div class="card">
             <img src="{{imageUrl}}" class="card-img-top" alt="{{title}}">
             <div class="card-body">
-                <h5 class="card-title">{{title}}</h5>
+                <h class="card-title">{{title}}</h4>
                 <p class="card-text">{{shortDescription}}</p>
-                <a href="/recipe/detail/{{_id}}">View details</a>
+                <p class="card-author">Recipe by {{creator.0.username}}</p>
+                <a href="/recipe/detail/{{_id}}"><button class="btn btn-primary">View details</button></a>
             </div>
         </div>
     </div>
