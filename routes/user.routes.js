@@ -72,8 +72,7 @@ router.get("/my-cookbook", isLoggedIn, (req, res) => {
     res.redirect("/discover");
   } else {
     User.findById(user._id)
-      .populate("cookbook")
-      .populate('cookbook.creator')
+      .populate({path: 'cookbook', populate: {path: 'creator'}})
       .then((userRecipes) => {
         res.render("user-views/my-cookbook", { recipes: userRecipes.cookbook });
       })
