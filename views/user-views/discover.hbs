@@ -50,7 +50,11 @@
         <h4 class="card-title">{{title}}</h4>
         <p class="card-text">{{shortDescription}}</p>
         <p class="card-author">Recipe by {{creator.0.username}}</p>
-        <a href="/recipe/detail/{{_id}}">View details</a>
+        <a href="/recipe/detail/{{_id}}"><button class="btn btn-primary">View details</button></a>
+        <form action="/recipe/add-to-cookbook/{{_id}}" method="post"><button type="submit"
+            class="btn">Add to my
+            cookbook</button>
+        </form>
       </div>
     </div>
   </div>
