@@ -51,26 +51,39 @@ function updateProgressBar() {
 // When the user saves the recipe, add this array to Recipe.ingredients
 
 let ingredientsArray = [];
-let ingredientButton = document.querySelectorAll(".add-step-btn");
-const ingList = document.getElementById("ingredients-list");
-const newButton = document.getElementsByTagName('button')
+let stepsArray = [];
+let addLiBtn = document.querySelectorAll(".add-step-btn");
+const list = document.querySelector(".list");
+const deleteBtn = document.querySelector(".remove-li-btn");
 
-ingredientButton.forEach((btn) => {
+addLiBtn.forEach((btn) => {
   btn.addEventListener("click", () => {
-    let ingredient = document.getElementsByClassName("ingredient-textarea")[0].value;
-    ingList.innerHTML = ingList.innerHTML + `<li>${ingredient}</li>`
-    ingredientsArray.push(ingredient)
+    let element = document.getElementsByClassName("textarea")[0].value;
+    list.innerHTML =
+      list.innerHTML +
+      `<li>${element}   <button class="btn remove-li-btn">🗑️</button></li>`;
+    if (btn.id === 'ingredient-btn') {
+      // the button has been clicked in the ingredients list (class ="list ingredients") =>
+      ingredientsArray.push(element);
+    } else if (btn.id === 'steps-btn') {
+      // the button has been clicked in the cooking steps list (class="list steps"
+      stepsArray.push(element);
+    }
+    console.log(`ingredients: ${ingredientsArray}`)
+    console.log(`Steps: ${stepsArray}`)
   });
+  
 });
 
-let stepsArray = [];
-
-
-// function addStep(array) {
-//   let li = document.createElement("li");
-//   li.innerHTML(`${ingredient}`);
-//   document.createElement("textarea");
-//   let newButton = document.createElement("button");
-//   newButton.innerHTML("Add ingredient");
-//   newButton.id("add-ingredient-btn");
-// }
+function deleteLi() {
+  list.addEventListener("click", (event) => {
+    if (event.target.tagName === "button") {
+      const button = event.target;
+      const li = button.parentNode;
+      const ul = li.parentNode;
+      if (button.id === "ingredient-btn") {
+        ul.removeChild(li);
+      }
+    }
+  });
+}
