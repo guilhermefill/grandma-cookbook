@@ -25,6 +25,7 @@ router.post('/search', (req, res) => {
     res.render("recipe-views/search", { errorMessage: "Please provide a search value" })
   } else if (dietType !== "" && level !== "") {
     Recipe.find({ $and: [{ dietRestriction: dietType }, { $text: { $search: JSON.stringify(searchValue) } }, { level: level }, { public: true }] })
+      .populate('creator')
       .then(foundRecipe => {
         if (foundRecipe.length === 0) {
           res.render('recipe-views/search-result', { errorMessage: "Nothing was found" })
@@ -35,6 +36,7 @@ router.post('/search', (req, res) => {
       .catch(error => console.log(error));
   } else if (level !== "") {
     Recipe.find({ $and: [{ level: level }, { $text: { $search: JSON.stringify(searchValue) } }, { public: true }] })
+      .populate('creator')
       .then(foundRecipe => {
         if (foundRecipe.length === 0) {
           res.render('recipe-views/search-result', { errorMessage: "Nothing was found" })
@@ -45,6 +47,7 @@ router.post('/search', (req, res) => {
       .catch(error => console.log(error));
   } else if (dietType !== "") {
     Recipe.find({ $and: [{ dietRestriction: dietType }, { $text: { $search: JSON.stringify(searchValue) } }, { public: true }] })
+      .populate('creator')
       .then(foundRecipe => {
         if (foundRecipe.length === 0) {
           res.render('recipe-views/search-result', { errorMessage: "Nothing was found" })
@@ -55,6 +58,7 @@ router.post('/search', (req, res) => {
       .catch(error => console.log(error));
   } else {
     Recipe.find({ $and: [{ $text: { $search: JSON.stringify(searchValue) } }, { public: true }] })
+      .populate('creator')
       .then(foundRecipe => {
         if (foundRecipe.length === 0) {
           res.render('recipe-views/search-result', { errorMessage: "Nothing was found" })
@@ -129,7 +133,7 @@ router.get("/edit/:id", isLoggedIn, async (req, res) => {
   try {
     const foundRecipe = await Recipe.findById(id).populate('creator');
     if (user.username === foundRecipe.creator[0].username) {
-      res.render('recipe-views/edit', {recipe: foundRecipe})
+      res.render('recipe-views/edit', { recipe: foundRecipe })
     } else {
       res.redirect(`/recipe/detail/${id}`);
     }
