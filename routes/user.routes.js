@@ -29,15 +29,17 @@ function shuffle(array) {
   return array;
 }
 
-router.get("/discover", isLoggedIn, (req, res) => {
+router.get("/discover", isLoggedIn, async (req, res) => {
   const user = req.session.currentUser;
-  Recipe.find()
-    .populate("creator")
-    .then((recipes) => {
-      let shuffledRecipes = shuffle(recipes);
-      res.render("user-views/discover", { shuffledRecipes });
-    })
-    .catch((error) => console.log(error));
+  try {
+    const loggedUser = await User.findById(user._id)
+    const foundRecipes = await Recipe.find().populate('creator')
+    const unseenRecipes = foundRecipes.filter(x => !loggedUser.cookbook.includes(x._id))
+    let shuffledRecipes = shuffle(unseenRecipes)
+    res.render("user-views/discover", { shuffledRecipes });
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 router.post('/discover', isLoggedIn, async (req, res) => {
@@ -54,8 +56,10 @@ router.post('/discover', isLoggedIn, async (req, res) => {
     filters.dishType = type
   }
   try {
+    const loggedUser = await User.findById(user._id)
     const foundRecipes = await Recipe.find(filters)
-    let shuffledRecipes = shuffle(foundRecipes)
+    const unseenRecipes = foundRecipes.filter(x => !loggedUser.cookbook.includes(x._id))
+    let shuffledRecipes = shuffle(unseenRecipes)
     res.render("user-views/discover", { shuffledRecipes });
   } catch (error) {
     console.log(error);
@@ -69,6 +73,7 @@ router.get("/my-cookbook", isLoggedIn, (req, res) => {
   } else {
     User.findById(user._id)
       .populate("cookbook")
+      .populate('cookbook.creator')
       .then((userRecipes) => {
         res.render("user-views/my-cookbook", { recipes: userRecipes.cookbook });
       })
@@ -94,7 +99,7 @@ router.post('/my-cookbook', isLoggedIn, async (req, res) => {
   }
   try {
     const foundUser = await User.findById(user._id)
-    const foundRecipes = await Recipe.find(filters)
+    const foundRecipes = await Recipe.find(filters).populate('creator')
     const filterResults = foundRecipes.filter(recipe => foundUser.cookbook.includes(recipe._id))
     res.render("user-views/my-cookbook", { recipes: filterResults });
   } catch (error) {
