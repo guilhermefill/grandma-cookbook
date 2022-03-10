@@ -8,11 +8,14 @@
 {{/if}}
 <div class="search">
     <form action="/recipe/search" method="POST">
+    <div class="form-group">
         <div class="first-line-search">
             <label>Search:
                 <input type="text" name="searchValue" placeholder="Search for a recipe... try: potatos">
             </label>
         </div>
+    </div>
+    <div class="form-group">
         <div class="second-line-search">
             <label>
                 Diet:
@@ -24,6 +27,8 @@
                 </select>
             </label>
         </div>
+    </div>
+    <div class="form-group">
         <div class="third-line-search">
             <label>
                 Level:
@@ -35,6 +40,7 @@
                 </select>
             </label>
         </div>
-        <button type="submit">Search</button>
+    </div>
+        <button type="submit" class="btn btn-primary">Search</button>
     </form>
 </div>
