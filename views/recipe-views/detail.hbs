@@ -38,26 +38,27 @@
     </div>
     <div class="row">
         <div class="col">
-            {{#if userMatch}}
-            <a href="/recipe/edit/{{recipe._id}}"><button>Edit this recipe</button></a>
-            <a href="/recipe/delete/{{recipe._id}}"><button>Delete this recipe</button></a>
-            {{else}}
-            {{#if cookbookMatch}}
-            <form action="/recipe/remove-from-cookbook/{{recipe._id}}" method="post"><button type="submit">Remove from
-                    my cookbook</button></form>
-            {{else}}
-            <form action="/recipe/add-to-cookbook/{{recipe._id}}" method="post"><button type="submit">Add to my
-                    cookbook</button>
-            </form>
-            {{/if}}
-            {{/if}}
-            <div class="col">
-                <button id="add-comment-btn">Add a note</button>
+            <div class="col md-flex justify-content-md-end">
+                <button id="add-comment-btn" class="btn btn-primary">Add a note</button>
                 <div>
                     <form action="/recipe/add-note/{{recipe._id}}" method="post" id="comment-box">
                     </form>
                 </div>
             </div>
+            <hr>
+            {{#if userMatch}}
+            <a href="/recipe/edit/{{recipe._id}}"><button class="btn">Edit this recipe</button></a>
+            <a href="/recipe/delete/{{recipe._id}}"><button class="btn btn-danger">Delete this recipe</button></a>
+            {{else}}
+            {{#if cookbookMatch}}
+            <form action="/recipe/remove-from-cookbook/{{recipe._id}}" method="post"><button type="submit" class="btn btn-danger">Remove from
+                    my cookbook</button></form>
+            {{else}}
+            <form action="/recipe/add-to-cookbook/{{recipe._id}}" method="post"><button type="submit" class="btn btn-success">Add to my
+                    cookbook</button>
+            </form>
+            {{/if}}
+            {{/if}}
         </div>
     </div>
 
