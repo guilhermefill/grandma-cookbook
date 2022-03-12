@@ -4,7 +4,7 @@
 <h1>Add a new recipe</h1>
 <hr>
 <div class="container">
-    <form action="/recipe/create-recipe" method="post"  class="form">
+    <form action="/recipe/create-recipe" method="post" class="form" enctype="multipart/form-data">
         <div class="progressbar">
             <div class="progress" id="progress"></div>
             <div class="progress-step progress-step-active" data-title="Basic info"></div>
@@ -42,12 +42,12 @@
             </div>
             <div>
                 <label for="diet-restrictions">Diet restrictions:</label>
-                <input type="checkbox" name="vegan" value="vegan" id="vegan">
+                <input type="checkbox" name="vegan" value="Vegan" id="vegan">
                 <label for="vegan">Vegan</label>
-                <input type="checkbox" name="vegetarian" value="vegetarian" id="vegetarian">
+                <input type="checkbox" name="vegetarian" value="Vegetarian" id="vegetarian">
                 <label for="vegetarian">Vegetarian</label>
-                <input type="checkbox" name="gluten-free" value="gluten-free" id="gluten-free">
-                <label for="gluten-free">Gluten-free</label>
+                <input type="checkbox" name="glutenFree" value="Gluten-free" id="gluten-free">
+                <label for="glutenFree">Gluten-free</label>
             </div>
             <div>
                 <label for="level">Level</label>
@@ -64,6 +64,11 @@
                 <label for="cuisine">Cuisine</label>
                 <input type="text" name="cuisine" id="cuisine" placeholder="Italian, Japanese, etc.">
             </div>
+            <div>
+                <h4>Do you wanna share your recipe?</h4>
+                <input type="checkbox" name="public" value="public">
+                <label for="public"> I want to share this recipe with the community</label>
+            </div>
             <button type="button" class="btn btn-next">Next</button>
         </div>
 
@@ -71,7 +76,9 @@
             <h3>Ingredients</h3>
             <ul class="list ingredients"></ul>
             <div>
-                <input class="ingredientInput" type="text" id="ingredients" cols="50" rows="3" placeholder="Add ingredients"></input>
+                <input class="ingredientInput" type="text" id="ingredients" cols="50" rows="3"
+                    placeholder="Add ingredients"></input>
+                <input type="hidden" name="ingredientsList" value="" id="ingredientsList">
                 <button type="button" class="btn add-ingredient-btn" id="ingredient-btn">Add ingredient</button>
             </div>
             <br>
@@ -85,27 +92,26 @@
             <div>
                 <input class="stepsInput" type="text" id="steps" placeholder="Add your cooking steps here" cols="50"
                     rows="3"></input>
+                 <input type="hidden" name="stepsList" value="" id="stepsList">
                 <button type="button" class="btn add-step-btn" id="steps-btn">Add cooking step</button>
             </div>
 
             <br>
             <button type="button" class="btn btn-prev">Back</button>
-            <button type="button" class="btn btn-next">Next</button>
+            <button type="button" class="btn btn-next ">Next</button>
         </div>
 
         <div class="form-step">
             <h3>Picture</h3>
-            {{!-- <div>
-                <img class="recipe-img" src="{{this.imageUrl}}">
-                <br>
-                <input type="file" name="picture" name="imageUrl">
+            <div>
+                {{!-- <img class="recipe-img"
+                    src="https://img.freepik.com/free-photo/frying-pan-empty-with-various-spices-black-table_1220-561.jpg?t=st=1646052931~exp=1646053531~hmac=6bb2c3c79673febfb82d1725483fab082dc8e1d50885e64bf8ef9e8b607a9d5c&w=1380">
+                <br> --}}
+                <input type="file" id="imageUrl" name="imageUrl">
                 <h6>Upload a photo of your dish</h6>
-            </div> --}}
-            <h4>Do you wanna share your recipe?</h4>
-            <input type="checkbox" name="public" value="public">
-            <label for="public"> I want to share this recipe with the community</label>
+            </div>
             <button type="button" class="btn btn-prev">Back</button>
-            <button id="submit-btn" onclick="createRecipeObject()" class="btn btn-primary">Save my recipe</button>
+            <button id="submit-btn"  class="btn btn-primary">Save my recipe</button>
         </div>
 
     </form>
