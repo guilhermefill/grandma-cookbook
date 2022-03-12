@@ -16,6 +16,8 @@ const MongoStore = require("connect-mongo");
 // https://www.npmjs.com/package/hbs
 const hbs = require("hbs");
 
+hbs.registerPartials(__dirname + '/views/partials');
+
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
