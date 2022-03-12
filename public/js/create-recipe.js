@@ -57,7 +57,8 @@ let addStepBtn = document.querySelectorAll(".add-step-btn");
 const ingList = document.querySelector(".list");
 const stepList = document.querySelector(".stepList");
 const deleteBtn = document.querySelector(".remove-li-btn");
-const ingredientsList = document.getElementById('ingredientsList')
+const ingredientsList = document.getElementById('ingredientsList');
+const stepsList = document.getElementById('stepsList')
 
 addIngredientBtn.forEach((btn) => {
   btn.addEventListener("click", () => {
@@ -77,7 +78,8 @@ addStepBtn.forEach((btn) => {
     stepList.innerHTML =
       stepList.innerHTML +
       `<li onclick="deleteLi(event, stepsArray)"><p class="element-value">${step}</p>    🗑️</li>`;
-    stepsArray.push(step);
+    stepsArray.push(step + '*split');
+    stepsList.value = stepsArray
     console.log(`Steps: ${stepsArray}`);
   });
 });

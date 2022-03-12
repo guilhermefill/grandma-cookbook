@@ -24,7 +24,6 @@ router.post('/search', (req, res) => {
     res.render("recipe-views/search", { errorMessage: "Please provide a search value" })
   } else if (dietType !== "" && level !== "") {
     Recipe.find({ $and: [{ dietRestriction: dietType }, { $text: { $search: JSON.stringify(searchValue) } }, { level: level }, { public: true }] })
-      .populate('creator')
       .then(foundRecipe => {
         if (foundRecipe.length === 0) {
           res.render('recipe-views/search-result', { errorMessage: "Nothing was found" })
@@ -35,7 +34,6 @@ router.post('/search', (req, res) => {
       .catch(error => console.log(error));
   } else if (level !== "") {
     Recipe.find({ $and: [{ level: level }, { $text: { $search: JSON.stringify(searchValue) } }, { public: true }] })
-      .populate('creator')
       .then(foundRecipe => {
         if (foundRecipe.length === 0) {
           res.render('recipe-views/search-result', { errorMessage: "Nothing was found" })
@@ -46,7 +44,6 @@ router.post('/search', (req, res) => {
       .catch(error => console.log(error));
   } else if (dietType !== "") {
     Recipe.find({ $and: [{ dietRestriction: dietType }, { $text: { $search: JSON.stringify(searchValue) } }, { public: true }] })
-      .populate('creator')
       .then(foundRecipe => {
         if (foundRecipe.length === 0) {
           res.render('recipe-views/search-result', { errorMessage: "Nothing was found" })
@@ -57,7 +54,6 @@ router.post('/search', (req, res) => {
       .catch(error => console.log(error));
   } else {
     Recipe.find({ $and: [{ $text: { $search: JSON.stringify(searchValue) } }, { public: true }] })
-      .populate('creator')
       .then(foundRecipe => {
         if (foundRecipe.length === 0) {
           res.render('recipe-views/search-result', { errorMessage: "Nothing was found" })
@@ -77,13 +73,10 @@ router.get("/detail/:id", isLoggedIn, async (req, res) => {
   const user = req.session.currentUser;
   const { id } = req.params;
   try {
-    const foundNotes = await Note.find({ $and: [{ user: user._id }, { recipe: id }] });
-    const recipe = await Recipe.findById(id).populate('creator');
-    const userCookbook = await User.findById(user._id)
+    const foundNotes = await Note.find({ $and: [{ user: user._id }, { recipe: id }] })
+    const recipe = await Recipe.findById(id).populate('creator')
     if (user.username === recipe.creator[0].username) {
       res.render("recipe-views/detail", { recipe: recipe, userMatch: true, note: foundNotes });
-    } else if (userCookbook.cookbook.includes(id)) {
-      res.render("recipe-views/detail", { recipe: recipe, cookbookMatch: true, note: foundNotes });
     } else {
       res.render("recipe-views/detail", { recipe: recipe, note: foundNotes });
     }
@@ -118,75 +111,58 @@ router.post('/add-to-cookbook/:id', isLoggedIn, (req, res) => {
     .catch(error => console.log(error));
 });
 
-router.post('/remove-from-cookbook/:id', isLoggedIn, (req, res) => {
-  const user = req.session.currentUser;
-  const { id } = req.params;
-  User.findByIdAndUpdate(user._id, { $pull: { cookbook: id } })
-    .then(() => res.redirect(`/my-cookbook`))
-    .catch(error => console.log(error));
-});
-
-router.get("/edit/:id", isLoggedIn, async (req, res) => {
-  const user = req.session.currentUser;
-  const { id } = req.params;
-  try {
-    const foundRecipe = await Recipe.findById(id).populate('creator');
-    if (user.username === foundRecipe.creator[0].username) {
-      res.render('recipe-views/edit', { recipe: foundRecipe })
-    } else {
-      res.redirect(`/recipe/detail/${id}`);
-    }
-  } catch (error) {
-    console.log(error);
-  }
+router.get("/edit/:id", isLoggedIn, (req, res) => {
+  res.render("recipe-views/edit");
 });
 
 router.post("/delete/:id", isLoggedIn, async (req, res) => {
-  const {id} = req.params
+  const {id} = req.params;
   const foundRecipe = await Recipe.findByIdAndDelete(id)
   res.redirect('/my-cookbook')
-})
+});
 
 router.post('/create-recipe', fileUploader.single("imageUrl"), (req, res) => {
-  const { title, level, cuisine, dishtType, public, ingredientsList } = req.body;
-  let obj = JSON.parse(JSON.stringify(req.body));
+  const { title, level, cuisine, dishtType, public, ingredientsList, stepsList  } = req.body;
+  const obj = JSON.parse(JSON.stringify(req.body)); // req.body = [Object: null prototype] { title: 'product' }
   obj.ingredientsList = ingredientsList.split('*split,')
   obj.ingredientsList[obj.ingredientsList.length - 1] = obj.ingredientsList[obj.ingredientsList.length - 1].replace('*split','')
+  obj.stepsList = stepsList.split('*split,')
+  obj.stepsList[obj.stepsList.length - 1] = obj.stepsList[obj.stepsList.length - 1].replace('*split','')
 
-  console.log("======================================= req.body:", obj)
+  console.log("======================================= req.body:", obj, req.file)
   
   const userID = req.session.currentUser._id;
 
-  // if (req.file != undefined) {
-  //   Recipe.create({
-  //     title : title, 
-  //     ingredients: [],
-  //     creator: userID,
-  //     imageUrl: req.file.path,
-  //     cookingSteps: [],
-  //     dietRestriction: [], //how do I do this?
-  //     level: level,
-  //     cuisine: cuisine,
-  //     dishtType: dishtType,
-  //     public: public
-  //   })
-  //   .then(() => res.redirect('/my-cookbook'))
-  //   .catch(error => console.log(error))
-  // } else {
-  //   Recipe.create({
-  //     title : title, 
-  //     ingredients: [],
-  //     creator: userID,
-  //     cookingSteps: [],
-  //     dietRestriction: [], //how do I do this?
-  //     level: level,
-  //     cuisine: cuisine,
-  //     dishtType: dishtType,
-  //     public: public
-  //   })
-  //   .then(() => res.redirect('/my-cookbook'))
-  //   .catch(error => console.log(error))
-  // }
+  if (req.file != undefined) {
+    Recipe.create({
+      title : title, 
+      ingredients: obj.ingredientsList,
+      creator: userID,
+      imageUrl: req.file.path,
+      cookingSteps: obj.stepsList,
+      dietRestriction: [], //how do I do this?
+      level: level,
+      cuisine: cuisine,
+      dishtType: dishtType,
+      public: public
+    })
+    .then(() => res.redirect('/my-cookbook'))
+    .catch(error => console.log(error))
+  } else {
+    Recipe.create({
+      title : title, 
+      ingredients: obj.ingredientsList,
+      creator: userID,
+      cookingSteps: obj.stepsList,
+      dietRestriction: [], //how do I do this?
+      level: level,
+      cuisine: cuisine,
+      dishtType: dishtType,
+      public: public
+    })
+    .then(() => res.redirect('/my-cookbook'))
+    .catch(error => console.log(error))
+  }
 
   
  });
