@@ -122,7 +122,7 @@ router.post("/delete/:id", isLoggedIn, async (req, res) => {
 });
 
 router.post('/create-recipe', fileUploader.single("imageUrl"), (req, res) => {
-  const { title, level, cuisine, dishtType, public, ingredientsList, stepsList, vegan , vegetarian, glutenFree } = req.body;
+  const { title, level, cuisine, dishtType, public, ingredientsList, stepsList, vegan , vegetarian, glutenFree, description } = req.body;
   const obj = JSON.parse(JSON.stringify(req.body)); // req.body = [Object: null prototype] { title: 'product' }
   obj.ingredientsList = ingredientsList.split('*split,')
   obj.ingredientsList[obj.ingredientsList.length - 1] = obj.ingredientsList[obj.ingredientsList.length - 1].replace('*split','')
@@ -141,6 +141,7 @@ router.post('/create-recipe', fileUploader.single("imageUrl"), (req, res) => {
       title : title, 
       ingredients: obj.ingredientsList,
       creator: userID,
+      description: description,
       imageUrl: req.file.path,
       cookingSteps: obj.stepsList,
       dietRestriction: obj.dietRestriction, //how do I do this?
@@ -159,6 +160,7 @@ router.post('/create-recipe', fileUploader.single("imageUrl"), (req, res) => {
       title : title, 
       ingredients: obj.ingredientsList,
       creator: userID,
+      description: description,
       cookingSteps: obj.stepsList,
       dietRestriction: obj.dietRestriction, //how do I do this?
       level: level,
