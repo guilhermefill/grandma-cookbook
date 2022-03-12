@@ -4,7 +4,7 @@
 <h1>Add a new recipe</h1>
 <hr>
 <div class="container">
-    <form action="/recipe/create-recipe" method="post"  class="form">
+    <form action="/recipe/create-recipe" method="post" class="form" enctype="multipart/form-data">
         <div class="progressbar">
             <div class="progress" id="progress"></div>
             <div class="progress-step progress-step-active" data-title="Basic info"></div>
@@ -71,7 +71,8 @@
             <h3>Ingredients</h3>
             <ul class="list ingredients"></ul>
             <div>
-                <input class="ingredientInput" type="text" id="ingredients" cols="50" rows="3" placeholder="Add ingredients"></input>
+                <input class="ingredientInput" type="text" id="ingredients" cols="50" rows="3"
+                    placeholder="Add ingredients"></input>
                 <button type="button" class="btn add-ingredient-btn" id="ingredient-btn">Add ingredient</button>
             </div>
             <br>
@@ -96,7 +97,9 @@
         <div class="form-step">
             <h3>Picture</h3>
             <div>
-                <input type="file" name="picture" name="imageUrl">
+                {{!-- <img class="recipe-img" src="https://img.freepik.com/free-photo/frying-pan-empty-with-various-spices-black-table_1220-561.jpg?t=st=1646052931~exp=1646053531~hmac=6bb2c3c79673febfb82d1725483fab082dc8e1d50885e64bf8ef9e8b607a9d5c&w=1380">
+                <br> --}}
+                <input type="file" id="imageUrl" name="imageUrl">
                 <h6>Upload a photo of your dish</h6>
             </div>
             <h4>Do you wanna share your recipe?</h4>

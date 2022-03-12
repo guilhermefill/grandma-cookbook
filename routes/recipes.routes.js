@@ -3,6 +3,8 @@ const router = require("express").Router();
 const User = require("../models/User.model");
 const Recipe = require("../models/Recipe.model");
 const Note = require("../models/Note.model");
+const { create } = require("connect-mongo");
+const fileUploader = require("../config/cloudinary.config");
 
 const isLoggedIn = (req, res, next) => {
   if (!req.session.currentUser) {
@@ -145,25 +147,46 @@ router.post("/delete/:id", isLoggedIn, async (req, res) => {
   res.redirect('/my-cookbook')
 })
 
-router.post('/create-recipe', (req, res) => {
-  const { title, ingredients, creator, imageUrl, cookingSteps, dietRestriction, level, cuisine, dishtType, public  } = req.body;
-  console.log("=======================================", req.body)
-  const user = req.session.currentUser
+router.post('/create-recipe', fileUploader.single("imageUrl"), (req, res) => {
+  const { title, level, cuisine, dishtType, public  } = req.body;
+  const obj = JSON.parse(JSON.stringify(req.body)); // req.body = [Object: null prototype] { title: 'product' }
 
-  Recipe.create({
-    title : title, 
-    ingredients: ingredientsArray,
-    creator: user._id,
-    imageUrl: imageUrl,
-    cookingSteps: stepsArray,
-    dietRestriction: [], //how do I do this?
-    level: level,
-    cuisine: cuisine,
-    dishtType: dishtType,
-    public: public
-  })
-  .then(() => res.redirect('/my-cookbook'))
-  .catch(error => console.log(error))
-});
+  console.log("======================================= req.body:", obj, req.file)
+  
+  const userID = req.session.currentUser._id;
+
+  if (req.file != undefined) {
+    Recipe.create({
+      title : title, 
+      ingredients: [],
+      creator: userID,
+      imageUrl: req.file.path,
+      cookingSteps: [],
+      dietRestriction: [], //how do I do this?
+      level: level,
+      cuisine: cuisine,
+      dishtType: dishtType,
+      public: public
+    })
+    .then(() => res.redirect('/my-cookbook'))
+    .catch(error => console.log(error))
+  } else {
+    Recipe.create({
+      title : title, 
+      ingredients: [],
+      creator: userID,
+      cookingSteps: [],
+      dietRestriction: [], //how do I do this?
+      level: level,
+      cuisine: cuisine,
+      dishtType: dishtType,
+      public: public
+    })
+    .then(() => res.redirect('/my-cookbook'))
+    .catch(error => console.log(error))
+  }
+
+  
+ });
 
 module.exports = router;

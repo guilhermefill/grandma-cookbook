@@ -103,5 +103,6 @@ function createRecipeObject(input) {
 //problems to solve:
 //1. add diet restrictions to array
 //2. create form for picture and somehow add it to the object
+//3. add all data to the object
 //3. clear ingredient/steps input box after adding info
 //4. add ingredient/steps with enter key
