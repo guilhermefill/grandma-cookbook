@@ -3,6 +3,7 @@ const router = require("express").Router();
 const User = require("../models/User.model");
 const Recipe = require("../models/Recipe.model");
 const Note = require("../models/Note.model");
+const { create } = require("connect-mongo");
 
 const isLoggedIn = (req, res, next) => {
   if (!req.session.currentUser) {
@@ -120,6 +121,7 @@ router.post("/delete/:id", isLoggedIn, (req, res) => {
 router.post('/create-recipe', (req, res) => {
   const { title, ingredients, creator, imageUrl, cookingSteps, dietRestriction, level, cuisine, dishtType, public  } = req.body;
   console.log("=======================================", req.body)
+  createRecipeObject(req.body)
   const user = req.session.currentUser
 
   Recipe.create({
