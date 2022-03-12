@@ -1,6 +1,14 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin: 0;
+  width: 100vw;
+  height: 100vw;
+  flex-direction: row;
 }
 
 a {
@@ -9,4 +17,18 @@ a {
 
 h1 {
   color: 15px;
+}
+
+nav {
+  display: flex;
+}
+
+nav ul {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+datalist {
+  display: flex;
 }

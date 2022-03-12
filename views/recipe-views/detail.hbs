@@ -1,2 +1,66 @@
-<h1>Recipe detail</h1>
+{{> navbar }}
+<hr>
+<div class="container">
+    <div class="col">
+        <h2>{{recipe.title}}</h2>
+        <p><em>{{recipe.shortDescription}}</em></p>
+    </div>
+    <div class="row">
+        <div class="col">
+            <img src="{{recipe.imageUrl}}" class="card-img-top" alt="{{recipe.title}}">
+            <p><strong>Created by: </strong>{{recipe.creator.0.username}} || <strong>Level: </strong>{{recipe.level}} ||
+                <strong>Cuisine:</strong> {{recipe.cuisine}} || {{recipe.dietRestriction}}
+            </p>
+        </div>
+        <div class="col">
+            <h4>Ingredients:</h4>
+            {{#each recipe.ingredients}}
+            <li>{{this}}</li>
+            {{/each}}
+            </ul>
+        </div>
+    </div>
+    <div class="col">
+        <h5>Instructions:</h5>
+        <p>{{recipe.cookingSteps}}</p>
+    </div>
+    <div class="col">
+        {{#if note}}
+        <h6>My notes to this recipe:</h6>
+        {{#each note}}
 
+        <p>{{this.notes}}</p>
+        <form action="/recipe/delete-note/{{../recipe._id}}" method="post">
+            <input type="hidden" name="noteId" value="{{this._id}}">
+            <button type="submit" class="btn btn-danger">Delete note</button>
+        </form>
+        {{/each}}
+        {{/if}}
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="col md-flex justify-content-md-end">
+                <button id="add-comment-btn" class="btn btn-primary">Add a note</button>
+                <div>
+                    <form action="/recipe/add-note/{{recipe._id}}" method="post" id="comment-box">
+                    </form>
+                </div>
+            </div>
+            <hr>
+            {{#if userMatch}}
+            <a href="/recipe/edit/{{recipe._id}}"><button class="btn">Edit this recipe</button></a>
+            <a href="/recipe/delete/{{recipe._id}}"><button class="btn btn-danger">Delete this recipe</button></a>
+            {{else}}
+            {{#if cookbookMatch}}
+            <form action="/recipe/remove-from-cookbook/{{recipe._id}}" method="post"><button type="submit" class="btn btn-danger">Remove from
+                    my cookbook</button></form>
+            {{else}}
+            <form action="/recipe/add-to-cookbook/{{recipe._id}}" method="post"><button type="submit" class="btn btn-success">Add to my
+                    cookbook</button>
+            </form>
+            {{/if}}
+            {{/if}}
+        </div>
+    </div>
+
+    <script src="/js/comment.script.js"></script>
