@@ -34,7 +34,7 @@ router.get("/discover", isLoggedIn, async (req, res) => {
   const user = req.session.currentUser;
   try {
     const loggedUser = await User.findById(user._id)
-    const foundRecipes = await Recipe.find().populate('creator')
+    const foundRecipes = await Recipe.find({public: true}).populate('creator')
     const unseenRecipes = foundRecipes.filter(x => !loggedUser.cookbook.includes(x._id))
     let shuffledRecipes = shuffle(unseenRecipes)
     res.render("user-views/discover", { shuffledRecipes });
@@ -47,6 +47,7 @@ router.post('/discover', isLoggedIn, async (req, res) => {
   const { dietType, dishLevel, type } = req.body;
   const user = req.session.currentUser;
   const filters = {}
+  filters.public = true
   if (dietType !== '') {
     filters.dietRestriction = dietType
   }
