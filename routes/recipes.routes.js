@@ -141,7 +141,9 @@ router.get("/edit/:id", isLoggedIn, async (req, res) => {
   }
 });
 
-router.post("/delete/:id", isLoggedIn, (req, res) => {
+router.post("/delete/:id", isLoggedIn, async (req, res) => {
+  const {id} = req.params
+  const foundRecipe = await Recipe.findByIdAndDelete(id)
   res.redirect('/my-cookbook')
 })
 
