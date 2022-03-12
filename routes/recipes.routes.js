@@ -148,43 +148,45 @@ router.post("/delete/:id", isLoggedIn, async (req, res) => {
 })
 
 router.post('/create-recipe', fileUploader.single("imageUrl"), (req, res) => {
-  const { title, level, cuisine, dishtType, public  } = req.body;
-  const obj = JSON.parse(JSON.stringify(req.body)); // req.body = [Object: null prototype] { title: 'product' }
+  const { title, level, cuisine, dishtType, public, ingredientsList } = req.body;
+  let obj = JSON.parse(JSON.stringify(req.body));
+  obj.ingredientsList = ingredientsList.split('*split,')
+  obj.ingredientsList[obj.ingredientsList.length - 1] = obj.ingredientsList[obj.ingredientsList.length - 1].replace('*split','')
 
-  console.log("======================================= req.body:", obj, req.file)
+  console.log("======================================= req.body:", obj)
   
   const userID = req.session.currentUser._id;
 
-  if (req.file != undefined) {
-    Recipe.create({
-      title : title, 
-      ingredients: [],
-      creator: userID,
-      imageUrl: req.file.path,
-      cookingSteps: [],
-      dietRestriction: [], //how do I do this?
-      level: level,
-      cuisine: cuisine,
-      dishtType: dishtType,
-      public: public
-    })
-    .then(() => res.redirect('/my-cookbook'))
-    .catch(error => console.log(error))
-  } else {
-    Recipe.create({
-      title : title, 
-      ingredients: [],
-      creator: userID,
-      cookingSteps: [],
-      dietRestriction: [], //how do I do this?
-      level: level,
-      cuisine: cuisine,
-      dishtType: dishtType,
-      public: public
-    })
-    .then(() => res.redirect('/my-cookbook'))
-    .catch(error => console.log(error))
-  }
+  // if (req.file != undefined) {
+  //   Recipe.create({
+  //     title : title, 
+  //     ingredients: [],
+  //     creator: userID,
+  //     imageUrl: req.file.path,
+  //     cookingSteps: [],
+  //     dietRestriction: [], //how do I do this?
+  //     level: level,
+  //     cuisine: cuisine,
+  //     dishtType: dishtType,
+  //     public: public
+  //   })
+  //   .then(() => res.redirect('/my-cookbook'))
+  //   .catch(error => console.log(error))
+  // } else {
+  //   Recipe.create({
+  //     title : title, 
+  //     ingredients: [],
+  //     creator: userID,
+  //     cookingSteps: [],
+  //     dietRestriction: [], //how do I do this?
+  //     level: level,
+  //     cuisine: cuisine,
+  //     dishtType: dishtType,
+  //     public: public
+  //   })
+  //   .then(() => res.redirect('/my-cookbook'))
+  //   .catch(error => console.log(error))
+  // }
 
   
  });
