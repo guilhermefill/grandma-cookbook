@@ -133,7 +133,6 @@ router.post('/create-recipe', fileUploader.single("imageUrl"), (req, res) => {
   if (vegan) {obj.dietRestriction.push(vegan)}
   if (vegetarian) {obj.dietRestriction.push(vegetarian)}
   if (glutenFree) {obj.dietRestriction.push(glutenFree)}
-  console.log("======================================= req.body:", obj, req.file)
   
   const userID = req.session.currentUser._id;
 

@@ -68,7 +68,6 @@ addIngredientBtn.forEach((btn) => {
       `<li onclick="deleteLi(event, ingredientsArray)"><p class="element-value">${ingredient}</p>    🗑️</li>`;
     ingredientsArray.push(ingredient + '*split');
     ingredientsList.value = ingredientsArray
-    console.log(`ingredients: ${ingredientsArray}`);
   });
 });
 
@@ -80,7 +79,6 @@ addStepBtn.forEach((btn) => {
       `<li onclick="deleteLi(event, stepsArray)"><p class="element-value">${step}</p>    🗑️</li>`;
     stepsArray.push(step + '*split');
     stepsList.value = stepsArray
-    console.log(`Steps: ${stepsArray}`);
   });
 });
 
@@ -88,21 +86,7 @@ function deleteLi(event, arr) {
   let target = event.target.querySelector(".element-value").innerHTML;
   arr = arr.filter((e) => e !== target);
   event.target.remove();
-  console.log(arr);
 }
-
-// function createRecipeObject() {
-//   console.log(axios)
-// let newRecipe = { ingredientsArray}
-//   axios
-//     .post("http://localhost:3000/recipe/create-recipe", newRecipe)
-//     .then((w) => {
-//       console.log(w);
-//     })
-//     .catch((err) => {
-//       console.log("error", err);
-//     });
-// }
 
 
 //problems to solve:
