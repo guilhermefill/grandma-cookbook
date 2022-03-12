@@ -84,7 +84,7 @@ addStepBtn.forEach((btn) => {
       `<li onclick="deleteLi(event, stepsArray)"><p class="element-value">${step}</p>    🗑️</li>`;
     stepsArray.push(step + '*split');
     stepsList.value = stepsArray;
-    ClearFields('steps');
+    ClearField('steps');
   });
 });
 
