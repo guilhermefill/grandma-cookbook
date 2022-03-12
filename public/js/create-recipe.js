@@ -87,10 +87,11 @@ function deleteLi(event, arr) {
   console.log(arr);
 }
 
-function createRecipeObject(input) {
-
+function createRecipeObject() {
+  console.log(axios)
+let newRecipe = { ingredientsArray}
   axios
-    .post("http://localhost:3000/recipe/create-recipe", input)
+    .post("http://localhost:3000/recipe/create-recipe", newRecipe)
     .then((w) => {
       console.log(w);
     })
@@ -106,3 +107,4 @@ function createRecipeObject(input) {
 //3. add all data to the object
 //3. clear ingredient/steps input box after adding info
 //4. add ingredient/steps with enter key
+//5. 
