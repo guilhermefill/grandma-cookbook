@@ -22,7 +22,11 @@
     </div>
     <div class="col">
         <h5>Instructions:</h5>
-        <p>{{recipe.cookingSteps}}</p>
+        <ol>
+            {{#each recipe.cookingSteps}}
+            <li>{{this}}</li>
+            {{/each}}
+        </ol>
     </div>
     <div class="col">
         {{#if note}}
