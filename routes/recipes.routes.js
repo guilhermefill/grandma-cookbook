@@ -122,13 +122,17 @@ router.post("/delete/:id", isLoggedIn, async (req, res) => {
 });
 
 router.post('/create-recipe', fileUploader.single("imageUrl"), (req, res) => {
-  const { title, level, cuisine, dishtType, public, ingredientsList, stepsList  } = req.body;
+  const { title, level, cuisine, dishtType, public, ingredientsList, stepsList, vegan , vegetarian, glutenFree } = req.body;
   const obj = JSON.parse(JSON.stringify(req.body)); // req.body = [Object: null prototype] { title: 'product' }
   obj.ingredientsList = ingredientsList.split('*split,')
   obj.ingredientsList[obj.ingredientsList.length - 1] = obj.ingredientsList[obj.ingredientsList.length - 1].replace('*split','')
   obj.stepsList = stepsList.split('*split,')
   obj.stepsList[obj.stepsList.length - 1] = obj.stepsList[obj.stepsList.length - 1].replace('*split','')
-
+  obj.dietRestriction = []
+  if (public) {obj.public = true} else {obj.public = false}
+  if (vegan) {obj.dietRestriction.push(vegan)}
+  if (vegetarian) {obj.dietRestriction.push(vegetarian)}
+  if (glutenFree) {obj.dietRestriction.push(glutenFree)}
   console.log("======================================= req.body:", obj, req.file)
   
   const userID = req.session.currentUser._id;
@@ -140,11 +144,14 @@ router.post('/create-recipe', fileUploader.single("imageUrl"), (req, res) => {
       creator: userID,
       imageUrl: req.file.path,
       cookingSteps: obj.stepsList,
-      dietRestriction: [], //how do I do this?
+      dietRestriction: obj.dietRestriction, //how do I do this?
       level: level,
       cuisine: cuisine,
       dishtType: dishtType,
-      public: public
+      public: obj.public
+    })
+    .then(recipe => {
+      return User.findByIdAndUpdate(userID, { $push: { cookbook: recipe._id } })
     })
     .then(() => res.redirect('/my-cookbook'))
     .catch(error => console.log(error))
@@ -154,11 +161,14 @@ router.post('/create-recipe', fileUploader.single("imageUrl"), (req, res) => {
       ingredients: obj.ingredientsList,
       creator: userID,
       cookingSteps: obj.stepsList,
-      dietRestriction: [], //how do I do this?
+      dietRestriction: obj.dietRestriction, //how do I do this?
       level: level,
       cuisine: cuisine,
       dishtType: dishtType,
-      public: public
+      public: obj.public
+    })
+    .then(recipe => {
+      return User.findByIdAndUpdate(userID, { $push: { cookbook: recipe._id } })
     })
     .then(() => res.redirect('/my-cookbook'))
     .catch(error => console.log(error))
