@@ -49,7 +49,7 @@
             <hr>
             {{#if userMatch}}
             <a href="/recipe/edit/{{recipe._id}}"><button class="btn">Edit this recipe</button></a>
-            <a href="/recipe/delete/{{recipe._id}}"><button class="btn btn-danger">Delete this recipe</button></a>
+            <form action="/recipe/delete/{{recipe._id}}" method="post"><button class="btn btn-danger">Delete this recipe</button></form>
             {{else}}
             {{#if cookbookMatch}}
             <form action="/recipe/remove-from-cookbook/{{recipe._id}}" method="post"><button type="submit" class="btn btn-danger">Remove from

@@ -57,6 +57,8 @@ let addStepBtn = document.querySelectorAll(".add-step-btn");
 const ingList = document.querySelector(".list");
 const stepList = document.querySelector(".stepList");
 const deleteBtn = document.querySelector(".remove-li-btn");
+const ingredientsList = document.getElementById('ingredientsList');
+const stepsList = document.getElementById('stepsList')
 
 addIngredientBtn.forEach((btn) => {
   btn.addEventListener("click", () => {
@@ -64,8 +66,8 @@ addIngredientBtn.forEach((btn) => {
     ingList.innerHTML =
       ingList.innerHTML +
       `<li onclick="deleteLi(event, ingredientsArray)"><p class="element-value">${ingredient}</p>    🗑️</li>`;
-    ingredientsArray.push(ingredient);
-    console.log(`ingredients: ${ingredientsArray}`);
+    ingredientsArray.push(ingredient + '*split');
+    ingredientsList.value = ingredientsArray
   });
 });
 
@@ -75,8 +77,8 @@ addStepBtn.forEach((btn) => {
     stepList.innerHTML =
       stepList.innerHTML +
       `<li onclick="deleteLi(event, stepsArray)"><p class="element-value">${step}</p>    🗑️</li>`;
-    stepsArray.push(step);
-    console.log(`Steps: ${stepsArray}`);
+    stepsArray.push(step + '*split');
+    stepsList.value = stepsArray
   });
 });
 
@@ -84,20 +86,6 @@ function deleteLi(event, arr) {
   let target = event.target.querySelector(".element-value").innerHTML;
   arr = arr.filter((e) => e !== target);
   event.target.remove();
-  console.log(arr);
-}
-
-function createRecipeObject() {
-  console.log(axios)
-let newRecipe = { ingredientsArray}
-  axios
-    .post("http://localhost:3000/recipe/create-recipe", newRecipe)
-    .then((w) => {
-      console.log(w);
-    })
-    .catch((err) => {
-      console.log("error", err);
-    });
 }
 
 
