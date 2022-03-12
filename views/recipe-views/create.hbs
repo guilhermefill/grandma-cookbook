@@ -1,4 +1,112 @@
+
 {{> navbar }}
 
-<h1>Create Recipe</h1>
+<h1>Add a new recipe</h1>
+<hr>
+<div class="container">
+    <form action="/recipe/create-recipe" method="post"  class="form">
+        <div class="progressbar">
+            <div class="progress" id="progress"></div>
+            <div class="progress-step progress-step-active" data-title="Basic info"></div>
+            <div class="progress-step" data-title="Ingredients"></div>
+            <div class="progress-step" data-title="Cooking Steps"></div>
+            <div class="progress-step" data-title="Picture"></div>
+        </div>
 
+        <div class="form-step form-step-active">
+            <label for="title">Name of your recipe</label>
+            <input type="text" name="title" id="title">
+            <br>
+            <label for="description">Short description</label>
+            <textarea name="description" id="description" maxlength="100" cols="50" rows="3"
+                placeholder="Describe your recipe in a few words"></textarea>
+            <br>
+            <label>Type of dish</label>
+            <div>
+                <label for="dishtType">
+                    <select name="dishtType" id="dishtType">
+                        <option value="Appetizer">Appetizer</option>
+                        <option value="Breakfast">Breakfast</option>
+                        <option value="Dessert">Dessert</option>
+                        <option value="Drink">Drink</option>
+                        <option value="Main course">Main course</option>
+                        <option value="Salad">Salad</option>
+                        <option value="Sauce">Sauce</option>
+                        <option value="Side dish">Side dish</option>
+                        <option value="Snack">Snack</option>
+                        <option value="Soup">Soup</option>
+                        <option value="Starter">Starter</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </label>
+            </div>
+            <div>
+                <label for="diet-restrictions">Diet restrictions:</label>
+                <input type="checkbox" name="vegan" value="vegan" id="vegan">
+                <label for="vegan">Vegan</label>
+                <input type="checkbox" name="vegetarian" value="vegetarian" id="vegetarian">
+                <label for="vegetarian">Vegetarian</label>
+                <input type="checkbox" name="gluten-free" value="gluten-free" id="gluten-free">
+                <label for="gluten-free">Gluten-free</label>
+            </div>
+            <div>
+                <label for="level">Level</label>
+                <label>
+                    <select name="level" id="level">
+                        <option value=""></option>
+                        <option value="Easy">Easy</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Fancy">Fancy</option>
+                    </select>
+                </label>
+            </div>
+            <div>
+                <label for="cuisine">Cuisine</label>
+                <input type="text" name="cuisine" id="cuisine" placeholder="Italian, Japanese, etc.">
+            </div>
+            <button type="button" class="btn btn-next">Next</button>
+        </div>
+
+        <div class="form-step">
+            <h3>Ingredients</h3>
+            <ul class="list ingredients"></ul>
+            <div>
+                <input class="ingredientInput" type="text" id="ingredients" cols="50" rows="3" placeholder="Add ingredients"></input>
+                <button type="button" class="btn add-ingredient-btn" id="ingredient-btn">Add ingredient</button>
+            </div>
+            <br>
+            <button type="button" class="btn btn-prev">Back</button>
+            <button type="button" class="btn btn-next">Next</button>
+        </div>
+
+        <div class="form-step">
+            <h3>Cooking steps</h3>
+            <ol class="stepList"></ol>
+            <div>
+                <input class="stepsInput" type="text" id="steps" placeholder="Add your cooking steps here" cols="50"
+                    rows="3"></input>
+                <button type="button" class="btn add-step-btn" id="steps-btn">Add cooking step</button>
+            </div>
+
+            <br>
+            <button type="button" class="btn btn-prev">Back</button>
+            <button type="button" class="btn btn-next">Next</button>
+        </div>
+
+        <div class="form-step">
+            <h3>Picture</h3>
+            {{!-- <div>
+                <img class="recipe-img" src="{{this.imageUrl}}">
+                <br>
+                <input type="file" name="picture" name="imageUrl">
+                <h6>Upload a photo of your dish</h6>
+            </div> --}}
+            <h4>Do you wanna share your recipe?</h4>
+            <input type="checkbox" name="public" value="public">
+            <label for="public"> I want to share this recipe with the community</label>
+            <button type="button" class="btn btn-prev">Back</button>
+            <button id="submit-btn" onclick="createRecipeObject()" class="btn btn-primary">Save my recipe</button>
+        </div>
+
+    </form>
+</div>

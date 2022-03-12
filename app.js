@@ -4,6 +4,7 @@ require("dotenv/config");
 
 // ℹ️ Connects to the database
 require("./db");
+var cors = require('cors')
 
 // Handles http requests (express is node js framework)
 // https://www.npmjs.com/package/express
@@ -37,6 +38,7 @@ app.use(session({
 
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config")(app);
+app.use(cors({credentials: true, origin: true}))
 
 // default value for title local
 const capitalized = require("./utils/capitalized");

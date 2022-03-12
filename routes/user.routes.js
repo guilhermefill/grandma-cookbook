@@ -29,7 +29,8 @@ function shuffle(array) {
   return array;
 }
 
-router.get("/discover", isLoggedIn, async (req, res) => {
+// We need to exclude from this list the recipes that are in user.cookbook
+router.get("/discover", isLoggedIn, (req, res) => {
   const user = req.session.currentUser;
   try {
     const loggedUser = await User.findById(user._id)
