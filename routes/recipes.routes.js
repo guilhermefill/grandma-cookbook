@@ -1,11 +1,8 @@
 const router = require("express").Router();
 
-
-
 const User = require("../models/User.model");
 const Recipe = require("../models/Recipe.model");
 const Note = require("../models/Note.model");
-
 
 const isLoggedIn = (req, res, next) => {
   if (!req.session.currentUser) {
@@ -119,5 +116,26 @@ router.get("/edit/:id", isLoggedIn, (req, res) => {
 router.post("/delete/:id", isLoggedIn, (req, res) => {
   res.redirect('/my-cookbook')
 })
+
+router.post('/create-recipe', (req, res) => {
+  const { title, ingredients, creator, imageUrl, cookingSteps, dietRestriction, level, cuisine, dishtType, public  } = req.body;
+  console.log("=======================================", req.body)
+  const user = req.session.currentUser
+
+  Recipe.create({
+    title : title, 
+    ingredients: ingredientsArray,
+    creator: user._id,
+    imageUrl: imageUrl,
+    cookingSteps: stepsArray,
+    dietRestriction: [], //how do I do this?
+    level: level,
+    cuisine: cuisine,
+    dishtType: dishtType,
+    public: public
+  })
+  .then(() => res.redirect('/my-cookbook'))
+  .catch(error => console.log(error))
+});
 
 module.exports = router;

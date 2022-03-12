@@ -52,38 +52,56 @@ function updateProgressBar() {
 
 let ingredientsArray = [];
 let stepsArray = [];
-let addLiBtn = document.querySelectorAll(".add-step-btn");
-const list = document.querySelector(".list");
+let addIngredientBtn = document.querySelectorAll(".add-ingredient-btn");
+let addStepBtn = document.querySelectorAll(".add-step-btn");
+const ingList = document.querySelector(".list");
+const stepList = document.querySelector(".stepList");
 const deleteBtn = document.querySelector(".remove-li-btn");
 
-addLiBtn.forEach((btn) => {
+addIngredientBtn.forEach((btn) => {
   btn.addEventListener("click", () => {
-    let element = document.getElementsByClassName("textarea")[0].value;
-    list.innerHTML =
-      list.innerHTML +
-      `<li>${element}   <button class="btn remove-li-btn">🗑️</button></li>`;
-    if (btn.id === 'ingredient-btn') {
-      // the button has been clicked in the ingredients list (class ="list ingredients") =>
-      ingredientsArray.push(element);
-    } else if (btn.id === 'steps-btn') {
-      // the button has been clicked in the cooking steps list (class="list steps"
-      stepsArray.push(element);
-    }
-    console.log(`ingredients: ${ingredientsArray}`)
-    console.log(`Steps: ${stepsArray}`)
+    let ingredient = document.getElementsByClassName("ingredientInput")[0].value;
+    ingList.innerHTML =
+      ingList.innerHTML +
+      `<li onclick="deleteLi(event, ingredientsArray)"><p class="element-value">${ingredient}</p>    🗑️</li>`;
+    ingredientsArray.push(ingredient);
+    console.log(`ingredients: ${ingredientsArray}`);
   });
-  
 });
 
-function deleteLi() {
-  list.addEventListener("click", (event) => {
-    if (event.target.tagName === "button") {
-      const button = event.target;
-      const li = button.parentNode;
-      const ul = li.parentNode;
-      if (button.id === "ingredient-btn") {
-        ul.removeChild(li);
-      }
-    }
+addStepBtn.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    let step = document.getElementsByClassName("stepsInput")[0].value;
+    stepList.innerHTML =
+      stepList.innerHTML +
+      `<li onclick="deleteLi(event, stepsArray)"><p class="element-value">${step}</p>    🗑️</li>`;
+    stepsArray.push(step);
+    console.log(`Steps: ${stepsArray}`);
   });
+});
+
+function deleteLi(event, arr) {
+  let target = event.target.querySelector(".element-value").innerHTML;
+  arr = arr.filter((e) => e !== target);
+  event.target.remove();
+  console.log(arr);
 }
+
+function createRecipeObject(input) {
+
+  axios
+    .post("http://localhost:3000/recipe/create-recipe", input)
+    .then((w) => {
+      console.log(w);
+    })
+    .catch((err) => {
+      console.log("error", err);
+    });
+}
+
+
+//problems to solve:
+//1. add diet restrictions to array
+//2. create form for picture and somehow add it to the object
+//3. clear ingredient/steps input box after adding info
+//4. add ingredient/steps with enter key

@@ -1,7 +1,7 @@
 <h1>Add a new recipe</h1>
 <hr>
 <div class="container">
-    <form action="/create-recipe" method="post" enctype="multipart/form-data" class="form">
+    <form action="/recipe/create-recipe" method="post"  class="form">
 
         <div class="progressbar">
             <div class="progress" id="progress"></div>
@@ -21,8 +21,8 @@
             <br>
             <label>Type of dish</label>
             <div>
-                <label for="type-of-dish">
-                    <select name="type-of-dish" id="title">
+                <label for="dishtType">
+                    <select name="dishtType" id="dishtType">
                         <option value="Appetizer">Appetizer</option>
                         <option value="Breakfast">Breakfast</option>
                         <option value="Dessert">Dessert</option>
@@ -69,9 +69,8 @@
             <h3>Ingredients</h3>
             <ul class="list ingredients"></ul>
             <div>
-                <input class="textarea" type="text" id="ingredients"
-                    placeholder="Add ingredients"></input>
-                <button type="button" class="btn add-step-btn" id="ingredient-btn">Add ingredient</button>
+                <input class="ingredientInput" type="text" id="ingredients" cols="50" rows="3" placeholder="Add ingredients"></input>
+                <button type="button" class="btn add-ingredient-btn" id="ingredient-btn">Add ingredient</button>
             </div>
             <br>
             <button type="button" class="btn btn-prev">Back</button>
@@ -80,10 +79,10 @@
 
         <div class="form-step">
             <h3>Cooking steps</h3>
-            <ol class="list steps"></ol>
+            <ol class="stepList"></ol>
             <div>
-                <textarea class="textarea" type="text" name="steps" id="steps" placeholder="Add your cooking steps here" cols="50"
-                    rows="3"></textarea>
+                <input class="stepsInput" type="text" id="steps" placeholder="Add your cooking steps here" cols="50"
+                    rows="3"></input>
                 <button type="button" class="btn add-step-btn" id="steps-btn">Add cooking step</button>
             </div>
 
@@ -94,17 +93,17 @@
 
         <div class="form-step">
             <h3>Picture</h3>
-            <div>
+            {{!-- <div>
                 <img class="recipe-img" src="{{this.imageUrl}}">
                 <br>
-                <input type="file" name="picture">
+                <input type="file" name="picture" name="imageUrl">
                 <h6>Upload a photo of your dish</h6>
-            </div>
+            </div> --}}
             <h4>Do you wanna share your recipe?</h4>
             <input type="checkbox" name="public" value="public">
             <label for="public"> I want to share this recipe with the community</label>
             <button type="button" class="btn btn-prev">Back</button>
-            <button id="submit-btn" type="submit" class="btn btn-primary">Save my recipe</button>
+            <button id="submit-btn" onclick="createRecipeObject()" class="btn btn-primary">Save my recipe</button>
         </div>
 
     </form>

@@ -69,3 +69,9 @@
     background-color: #00b7ff;
     color: white;
 }
+
+.textarea {
+    height:5rem;
+    width:500px;
+    word-break: break-word;
+}
