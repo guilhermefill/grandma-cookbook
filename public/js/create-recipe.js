@@ -60,25 +60,53 @@ const deleteBtn = document.querySelector(".remove-li-btn");
 const ingredientsList = document.getElementById('ingredientsList');
 const stepsList = document.getElementById('stepsList')
 
-addIngredientBtn.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    let ingredient = document.getElementsByClassName("ingredientInput")[0].value;
+function clearField(id) {
+  document.getElementById(id).value = "";
+}
+
+function submitIngredient() {
+  let ingredient = document.getElementsByClassName("ingredientInput")[0].value;
     ingList.innerHTML =
       ingList.innerHTML +
       `<li onclick="deleteLi(event, ingredientsArray)"><p class="element-value">${ingredient}</p>    🗑️</li>`;
     ingredientsArray.push(ingredient + '*split');
-    ingredientsList.value = ingredientsArray
+    ingredientsList.value = ingredientsArray;
+    clearField('ingredients');
+};
+
+function submitStep() {
+  let step = document.getElementsByClassName("stepsInput")[0].value;
+    stepList.innerHTML =
+      stepList.innerHTML +
+      `<li onclick="deleteLi(event, stepsArray)"><p class="element-value">${step}</p> 🗑️</li>`;
+    stepsArray.push(step + '*split');
+    stepsList.value = stepsArray;
+    clearField('steps');
+};
+
+addIngredientBtn.forEach((btn) => {
+  let input = document.getElementById('ingredients')
+  input.addEventListener('keydown', (event) => {
+    if(event.key === `Enter`) { 
+      event.preventDefault();
+      submitIngredient()    
+    } 
+  })
+  btn.addEventListener("click", () => {
+    submitIngredient()
   });
 });
 
 addStepBtn.forEach((btn) => {
+  let input = document.getElementById('steps')
+  input.addEventListener('keydown', (event) => {
+    if(event.key === `Enter`) { 
+      event.preventDefault();
+      submitStep()
+    }
+  }) 
   btn.addEventListener("click", () => {
-    let step = document.getElementsByClassName("stepsInput")[0].value;
-    stepList.innerHTML =
-      stepList.innerHTML +
-      `<li onclick="deleteLi(event, stepsArray)"><p class="element-value">${step}</p>    🗑️</li>`;
-    stepsArray.push(step + '*split');
-    stepsList.value = stepsArray
+    submitStep()
   });
 });
 

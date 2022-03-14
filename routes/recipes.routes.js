@@ -141,7 +141,7 @@ router.post('/create-recipe', fileUploader.single("imageUrl"), (req, res) => {
       title : title, 
       ingredients: obj.ingredientsList,
       creator: userID,
-      shortDescription: description,
+      shortDescription: shortDescription,
       imageUrl: req.file.path,
       cookingSteps: obj.stepsList,
       dietRestriction: obj.dietRestriction, //how do I do this?
@@ -160,7 +160,7 @@ router.post('/create-recipe', fileUploader.single("imageUrl"), (req, res) => {
       title : title, 
       ingredients: obj.ingredientsList,
       creator: userID,
-      shortDescription: description,
+      shortDescription: shortDescription,
       cookingSteps: obj.stepsList,
       dietRestriction: obj.dietRestriction, //how do I do this?
       level: level,
