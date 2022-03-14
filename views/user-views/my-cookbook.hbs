@@ -55,7 +55,7 @@
       <div class="card-body">
         <h4 class="card-title">{{title}}</h4>
         <p class="card-text">{{shortDescription}}</p>
-        <p class="card-author">Recipe by {{creator.0.username}}</p>
+        <p class="card-author">Recipe by {{creator.0.username}} <img src="{{creator.0.avatar}}" alt="avatar" class="mini-avatar"> </p>
         <a href="/recipe/detail/{{_id}}"><button class="btn btn-primary">View details</button></a>
         <form action="/recipe/remove-from-cookbook/{{_id}}" method="post"><button type="submit" class="btn">Remove from
                     my cookbook</button></form>

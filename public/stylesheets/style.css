@@ -32,3 +32,8 @@ nav ul {
 datalist {
   display: flex;
 }
+
+.mini-avatar {
+  height: 25px;
+  width: 25px;
+}
