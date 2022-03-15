@@ -137,7 +137,6 @@ router.post('/edit/:id', fileUploader.single('imageUrl'), async (req, res) => {
 
   try {
     if (req.file != undefined) {
-      obj.imageUrl = req.file.path
       const updatedRecipe = await Recipe.findByIdAndUpdate(id, {
         title: title,
         ingredients: obj.ingredientsList,
@@ -153,7 +152,6 @@ router.post('/edit/:id', fileUploader.single('imageUrl'), async (req, res) => {
       }, { new: true })
       res.redirect(`/recipe/detail/${id}`)
     } else {
-      obj.imageUrl = currentImg
       const updatedRecipe = await Recipe.findByIdAndUpdate(id, {
         title: title,
         ingredients: obj.ingredientsList,
