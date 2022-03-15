@@ -8,7 +8,8 @@
     <div class="row">
         <div class="col">
             <img src="{{recipe.imageUrl}}" class="card-img-top" alt="{{recipe.title}}">
-            <p><strong>Created by: </strong>{{recipe.creator.0.username}} <img src="{{recipe.creator.0.avatar}}" alt="avatar" class="mini-avatar"> || <strong>Level: </strong>{{recipe.level}} ||
+            <p><strong>Created by: </strong>{{recipe.creator.0.username}} <img src="{{recipe.creator.0.avatar}}"
+                    alt="avatar" class="mini-avatar"> || <strong>Level: </strong>{{recipe.level}} ||
                 <strong>Cuisine:</strong> {{recipe.cuisine}} || {{recipe.dietRestriction}}
             </p>
         </div>
@@ -53,13 +54,41 @@
             <hr>
             {{#if userMatch}}
             <a href="/recipe/edit/{{recipe._id}}"><button class="btn">Edit this recipe</button></a>
-            <form action="/recipe/delete/{{recipe._id}}" method="post"><button class="btn btn-danger">Delete this recipe</button></form>
+            <button class="btn btn-danger" data-toggle="modal" data-target="#deleteRecipeModal">Delete this
+                recipe</button>
+            <div class="modal fade" id="deleteRecipeModal" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Delete Recipe</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to delete this recipe? It will be deleted from other user's
+                            cookbooks as well!
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <form action="/recipe/delete/{{recipe._id}}" method="post">
+                                <button class="btn btn-danger" name="delete" value="delete-account"
+                                    type="submit">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             {{else}}
             {{#if cookbookMatch}}
-            <form action="/recipe/remove-from-cookbook/{{recipe._id}}" method="post"><button type="submit" class="btn btn-danger">Remove from
+            <form action="/recipe/remove-from-cookbook/{{recipe._id}}" method="post"><button type="submit"
+                    class="btn btn-danger">Remove from
                     my cookbook</button></form>
             {{else}}
-            <form action="/recipe/add-to-cookbook/{{recipe._id}}" method="post"><button type="submit" class="btn btn-success">Add to my
+            <form action="/recipe/add-to-cookbook/{{recipe._id}}" method="post"><button type="submit"
+                    class="btn btn-success">Add to my
                     cookbook</button>
             </form>
             {{/if}}
