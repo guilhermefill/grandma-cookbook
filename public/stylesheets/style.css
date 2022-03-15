@@ -21,6 +21,7 @@ h1 {
 
 nav {
   display: flex;
+  background-color: #b1a1ed;
 }
 
 nav ul {
@@ -36,4 +37,18 @@ datalist {
 .mini-avatar {
   height: 30px;
   width: 30px;
+}
+
+.index {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: auto;
+}
+
+video {
+  position: relative;
+  z-index: -1;
 }
