@@ -1,3 +1,105 @@
 {{> navbar }}
-<h1>Edit a Recipe</h1>
-<h2>{{recipe.title}}</h2>
+<hr>
+<form action="" method="post" <div class="container">
+    <h1>Edit a recipe</h1>
+
+    <div class="row">
+        <div class="col-4">
+            <h3>Recipe Details:</h3>
+        </div>
+        <div class="col-8">
+            <label for="title">Name</label>
+            <input type="text" name="title" id="title" value="{{recipe.title}}">
+            <br>
+            <label for="shortDescription">Short description</label>
+            <textarea name="shortDescription" id="shortDescription" maxlength="100" cols="50"
+                rows="3">{{recipe.shortDescription}}</textarea>
+            <br>
+
+            <img src="{{recipe.imageUrl}}" alt="{{recipe.title}}" height="200px">
+            <br>
+            <label>Type of dish</label>
+            <label for="dishtType">
+                <select name="dishtType" id="dishtType">
+                    <option hidden>{{recipe.dishType}}</option>
+                    <option value="Appetizer">Appetizer</option>
+                    <option value="Breakfast">Breakfast</option>
+                    <option value="Dessert">Dessert</option>
+                    <option value="Drink">Drink</option>
+                    <option value="Main course">Main course</option>
+                    <option value="Salad">Salad</option>
+                    <option value="Sauce">Sauce</option>
+                    <option value="Side dish">Side dish</option>
+                    <option value="Snack">Snack</option>
+                    <option value="Soup">Soup</option>
+                    <option value="Starter">Starter</option>
+                    <option value="Other">Other</option>
+                </select>
+            </label>
+            <label for="level">Level</label>
+            <label>
+                <select name="level" id="level">
+                    <option hidden>{{recipe.level}}</option>
+                    <option value=""></option>
+                    <option value="Easy">Easy</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Fancy">Fancy</option>
+                </select>
+            </label>
+            <label for="cuisine">Cuisine</label>
+            <input type="text" name="cuisine" id="cuisine" value="{{recipe.cuisine}}">
+            <br>
+            <label for="diet-restrictions">Diet restrictions:</label>
+            <input type="checkbox" name="vegan" value="Vegan" id="vegan">
+            <label for="vegan">Vegan</label>
+            <input type="checkbox" name="vegetarian" value="Vegetarian" id="vegetarian">
+            <label for="vegetarian">Vegetarian</label>
+            <input type="checkbox" name="glutenFree" value="Gluten-free" id="gluten-free">
+            <label for="glutenFree">Gluten-free</label>
+        </div>
+    </div>
+    <button>Edit the Details</button>
+    <hr>
+    <div class="row">
+        <div class="col-4">
+            <h3>Ingredients</h3>
+        </div>
+        <div class="col-8">
+            <ul>
+                {{#each recipe.ingredients}}
+                <li onclick="deleteLi(event, ingredientsArray)"><input class="ingredientInput" type="text"
+                        id="ingredients" cols="50" rows="3" value="{{this}}"></input> 🗑️</li>
+                {{/each}}
+            </ul>
+            <button>Add Ingredient</button>
+        </div>
+    </div>
+    <button>Edit the Ingredients</button>
+    <hr>
+    <div class="row">
+        <div class="col-4">
+            <h3>Cooking Steps</h3>
+        </div>
+        <div class="col-8">
+            <ol>
+                {{#each recipe.cookingSteps}}
+                <li onclick="deleteLi(event, stepsArray)"><textarea class="ingredientInput" type="text" cols="75" rows="4"
+                        id="ingredients">{{this}}</textarea> 🗑️</li>
+                {{/each}}
+            </ol>
+            <button>Add Step</button>
+        </div>
+    </div>
+    <button>Edit the Steps</button>
+    <hr>
+    </div>
+</form>
+
+
+
+
+
+
+
+
+<script src="/js/edit.script.js"></script>
