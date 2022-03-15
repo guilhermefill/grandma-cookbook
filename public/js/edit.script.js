@@ -1,3 +1,6 @@
+let ingArray = []
+let stpArray = []
+
 window.addEventListener('load', (event) => {
     refreshIngArr();
     refreshStpArr();
