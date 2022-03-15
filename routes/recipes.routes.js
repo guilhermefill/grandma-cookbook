@@ -114,6 +114,14 @@ router.post('/add-to-cookbook/:id', isLoggedIn, (req, res) => {
     .catch(error => console.log(error));
 });
 
+router.post('/remove-from-cookbook/:id', isLoggedIn, (req, res) => {
+  const user = req.session.currentUser;
+  const { id } = req.params;
+  User.findByIdAndUpdate(user._id, { $pull: { cookbook: id } })
+    .then(() => res.redirect(`/my-cookbook`))
+    .catch(error => console.log(error));
+});
+
 router.get("/edit/:id", isLoggedIn, async (req, res) => {
   const { id } = req.params;
   const foundRecipe = await Recipe.findById(id).populate('creator');
