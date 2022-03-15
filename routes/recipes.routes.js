@@ -23,7 +23,7 @@ router.post('/search', (req, res) => {
   if (searchValue === "") {
     res.render("recipe-views/search", { errorMessage: "Please provide a search value" })
   } else if (dietType !== "" && level !== "") {
-    Recipe.find({ $and: [{ dietRestriction: dietType }, { $text: { $search: JSON.stringify(searchValue) } }, { level: level }, { public: true }] })
+    Recipe.find({ $and: [{ dietRestriction: dietType }, { $text: { $search: JSON.stringify(searchValue) } }, { level: level }, { public: true }] }).populate('creator')
       .then(foundRecipe => {
         if (foundRecipe.length === 0) {
           res.render('recipe-views/search-result', { errorMessage: "Nothing was found" })
@@ -33,7 +33,7 @@ router.post('/search', (req, res) => {
       })
       .catch(error => console.log(error));
   } else if (level !== "") {
-    Recipe.find({ $and: [{ level: level }, { $text: { $search: JSON.stringify(searchValue) } }, { public: true }] })
+    Recipe.find({ $and: [{ level: level }, { $text: { $search: JSON.stringify(searchValue) } }, { public: true }] }).populate('creator')
       .then(foundRecipe => {
         if (foundRecipe.length === 0) {
           res.render('recipe-views/search-result', { errorMessage: "Nothing was found" })
@@ -43,7 +43,7 @@ router.post('/search', (req, res) => {
       })
       .catch(error => console.log(error));
   } else if (dietType !== "") {
-    Recipe.find({ $and: [{ dietRestriction: dietType }, { $text: { $search: JSON.stringify(searchValue) } }, { public: true }] })
+    Recipe.find({ $and: [{ dietRestriction: dietType }, { $text: { $search: JSON.stringify(searchValue) } }, { public: true }] }).populate('creator')
       .then(foundRecipe => {
         if (foundRecipe.length === 0) {
           res.render('recipe-views/search-result', { errorMessage: "Nothing was found" })
@@ -53,7 +53,7 @@ router.post('/search', (req, res) => {
       })
       .catch(error => console.log(error));
   } else {
-    Recipe.find({ $and: [{ $text: { $search: JSON.stringify(searchValue) } }, { public: true }] })
+    Recipe.find({ $and: [{ $text: { $search: JSON.stringify(searchValue) } }, { public: true }] }).populate('creator')
       .then(foundRecipe => {
         if (foundRecipe.length === 0) {
           res.render('recipe-views/search-result', { errorMessage: "Nothing was found" })
@@ -73,10 +73,13 @@ router.get("/detail/:id", isLoggedIn, async (req, res) => {
   const user = req.session.currentUser;
   const { id } = req.params;
   try {
-    const foundNotes = await Note.find({ $and: [{ user: user._id }, { recipe: id }] })
-    const recipe = await Recipe.findById(id).populate('creator')
+    const foundNotes = await Note.find({ $and: [{ user: user._id }, { recipe: id }] });
+    const recipe = await Recipe.findById(id).populate('creator');
+    const userCookbook = await User.findById(user._id)
     if (user.username === recipe.creator[0].username) {
       res.render("recipe-views/detail", { recipe: recipe, userMatch: true, note: foundNotes });
+    } else if (userCookbook.cookbook.includes(id)) {
+      res.render("recipe-views/detail", { recipe: recipe, cookbookMatch: true, note: foundNotes });
     } else {
       res.render("recipe-views/detail", { recipe: recipe, note: foundNotes });
     }
@@ -116,6 +119,58 @@ router.get("/edit/:id", isLoggedIn, async (req, res) => {
   const foundRecipe = await Recipe.findById(id).populate('creator');
   res.render("recipe-views/edit", { recipe: foundRecipe });
 });
+
+router.post('/edit/:id', fileUploader.single('imageUrl'), async (req, res) => {
+  const { title, level, cuisine, dishtType, public, ingredientsList, stepsList, vegan, vegetarian, glutenFree, shortDescription, currentImg } = req.body;
+  const obj = JSON.parse(JSON.stringify(req.body)); // req.body = [Object: null prototype] { title: 'product' }
+  obj.ingredientsList = ingredientsList.split('*split,')
+  obj.ingredientsList[obj.ingredientsList.length - 1] = obj.ingredientsList[obj.ingredientsList.length - 1].replace('*split', '')
+  obj.stepsList = stepsList.split('*split,')
+  obj.stepsList[obj.stepsList.length - 1] = obj.stepsList[obj.stepsList.length - 1].replace('*split', '')
+  obj.dietRestriction = []
+  if (public) { obj.public = true } else { obj.public = false }
+  if (vegan) { obj.dietRestriction.push(vegan) }
+  if (vegetarian) { obj.dietRestriction.push(vegetarian) }
+  if (glutenFree) { obj.dietRestriction.push(glutenFree) }
+  const {id} = req.params;
+  const userID = req.session.currentUser._id;
+
+  try {
+    if (req.file != undefined) {
+      const updatedRecipe = await Recipe.findByIdAndUpdate(id, {
+        title: title,
+        ingredients: obj.ingredientsList,
+        creator: userID,
+        shortDescription: shortDescription,
+        imageUrl: req.file.path,
+        cookingSteps: obj.stepsList,
+        dietRestriction: obj.dietRestriction, //how do I do this?
+        level: level,
+        cuisine: cuisine,
+        dishtType: dishtType,
+        public: obj.public
+      }, { new: true })
+      res.redirect(`/recipe/detail/${id}`)
+    } else {
+      const updatedRecipe = await Recipe.findByIdAndUpdate(id, {
+        title: title,
+        ingredients: obj.ingredientsList,
+        creator: userID,
+        shortDescription: shortDescription,
+        cookingSteps: obj.stepsList,
+        dietRestriction: obj.dietRestriction, //how do I do this?
+        level: level,
+        cuisine: cuisine,
+        dishtType: dishtType,
+        public: obj.public
+      }, { new: true })
+      res.redirect(`/recipe/detail/${id}`)
+      // res.send(obj)
+    }
+  } catch (error) {
+    console.log(error);
+  }
+})
 
 router.post("/delete/:id", isLoggedIn, async (req, res) => {
   const { id } = req.params;
