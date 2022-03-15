@@ -120,6 +120,60 @@ router.get("/edit/:id", isLoggedIn, async (req, res) => {
   res.render("recipe-views/edit", { recipe: foundRecipe });
 });
 
+router.post('/edit/:id', fileUploader.single('imageUrl'), async (req, res) => {
+  const { title, level, cuisine, dishtType, public, ingredientsList, stepsList, vegan, vegetarian, glutenFree, shortDescription, currentImg } = req.body;
+  const obj = JSON.parse(JSON.stringify(req.body)); // req.body = [Object: null prototype] { title: 'product' }
+  obj.ingredientsList = ingredientsList.split('*split,')
+  obj.ingredientsList[obj.ingredientsList.length - 1] = obj.ingredientsList[obj.ingredientsList.length - 1].replace('*split', '')
+  obj.stepsList = stepsList.split('*split,')
+  obj.stepsList[obj.stepsList.length - 1] = obj.stepsList[obj.stepsList.length - 1].replace('*split', '')
+  obj.dietRestriction = []
+  if (public) { obj.public = true } else { obj.public = false }
+  if (vegan) { obj.dietRestriction.push(vegan) }
+  if (vegetarian) { obj.dietRestriction.push(vegetarian) }
+  if (glutenFree) { obj.dietRestriction.push(glutenFree) }
+  const {id} = req.params;
+  const userID = req.session.currentUser._id;
+
+  try {
+    if (req.file != undefined) {
+      obj.imageUrl = req.file.path
+      const updatedRecipe = await Recipe.findByIdAndUpdate(id, {
+        title: title,
+        ingredients: obj.ingredientsList,
+        creator: userID,
+        shortDescription: shortDescription,
+        imageUrl: req.file.path,
+        cookingSteps: obj.stepsList,
+        dietRestriction: obj.dietRestriction, //how do I do this?
+        level: level,
+        cuisine: cuisine,
+        dishtType: dishtType,
+        public: obj.public
+      }, { new: true })
+      res.redirect(`/recipe/detail/${id}`)
+    } else {
+      obj.imageUrl = currentImg
+      const updatedRecipe = await Recipe.findByIdAndUpdate(id, {
+        title: title,
+        ingredients: obj.ingredientsList,
+        creator: userID,
+        shortDescription: shortDescription,
+        cookingSteps: obj.stepsList,
+        dietRestriction: obj.dietRestriction, //how do I do this?
+        level: level,
+        cuisine: cuisine,
+        dishtType: dishtType,
+        public: obj.public
+      }, { new: true })
+      res.redirect(`/recipe/detail/${id}`)
+      // res.send(obj)
+    }
+  } catch (error) {
+    console.log(error);
+  }
+})
+
 router.post("/delete/:id", isLoggedIn, async (req, res) => {
   const { id } = req.params;
   const foundRecipe = await Recipe.findByIdAndDelete(id)
