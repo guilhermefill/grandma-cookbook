@@ -1,8 +1,8 @@
 {{> navbar }}
 <hr>
+<h1>Edit a recipe</h1>
+<br>
 <form action="" method="post" <div class="container">
-    <h1>Edit a recipe</h1>
-
     <div class="row">
         <div class="col-4">
             <h3>Recipe Details:</h3>
@@ -21,7 +21,7 @@
             <label>Type of dish</label>
             <label for="dishtType">
                 <select name="dishtType" id="dishtType">
-                    <option hidden>{{recipe.dishType}}</option>
+                    <option hidden value="{{recipe.dishType}}" selected>{{recipe.dishType}}</option>
                     <option value="Appetizer">Appetizer</option>
                     <option value="Breakfast">Breakfast</option>
                     <option value="Dessert">Dessert</option>
@@ -39,8 +39,7 @@
             <label for="level">Level</label>
             <label>
                 <select name="level" id="level">
-                    <option hidden>{{recipe.level}}</option>
-                    <option value=""></option>
+                    <option hidden value="{{recipe.level}}" selected>{{recipe.level}}</option>
                     <option value="Easy">Easy</option>
                     <option value="Medium">Medium</option>
                     <option value="Fancy">Fancy</option>
@@ -50,49 +49,46 @@
             <input type="text" name="cuisine" id="cuisine" value="{{recipe.cuisine}}">
             <br>
             <label for="diet-restrictions">Diet restrictions:</label>
-            <input type="checkbox" name="vegan" value="Vegan" id="vegan">
-            <label for="vegan">Vegan</label>
-            <input type="checkbox" name="vegetarian" value="Vegetarian" id="vegetarian">
-            <label for="vegetarian">Vegetarian</label>
-            <input type="checkbox" name="glutenFree" value="Gluten-free" id="gluten-free">
-            <label for="glutenFree">Gluten-free</label>
+            <select multiple name="dietRestriction" id="diet-restrictions">
+                <option name="vegan" value="Vegan" id="vegan">Vegan</option>
+                <option name="vegetarian" value="Vegetarian" id="vegetarian">Vegetarian</option>
+                <option name="glutenFree" value="Gluten-free" id="gluten-free">Gluten-free</option>
+            </select>
         </div>
     </div>
-    <button>Edit the Details</button>
     <hr>
     <div class="row">
         <div class="col-4">
             <h3>Ingredients</h3>
         </div>
         <div class="col-8">
-            <ul>
+            <ul id="ingredient-list">
                 {{#each recipe.ingredients}}
-                <li onclick="deleteLi(event, ingredientsArray)"><input class="ingredientInput" type="text"
+                <li onclick="deleteLi(event, ingArray)"><input class="ingredientInput remover" type="text"
                         id="ingredients" cols="50" rows="3" value="{{this}}"></input> 🗑️</li>
                 {{/each}}
             </ul>
-            <button>Add Ingredient</button>
+            <button type="button" id="add-ingredient-btn">Add Ingredient</button>
         </div>
     </div>
-    <button>Edit the Ingredients</button>
     <hr>
     <div class="row">
         <div class="col-4">
             <h3>Cooking Steps</h3>
         </div>
         <div class="col-8">
-            <ol>
+            <ol id="step-list">
                 {{#each recipe.cookingSteps}}
-                <li onclick="deleteLi(event, stepsArray)"><textarea class="ingredientInput" type="text" cols="75" rows="4"
-                        id="ingredients">{{this}}</textarea> 🗑️</li>
+                <li onclick="deleteLi(event, stpArray)"><textarea class="ingredientInput remover" type="text" cols="75"
+                        rows="4" id="ingredients">{{this}}</textarea> 🗑️</li>
                 {{/each}}
             </ol>
-            <button>Add Step</button>
+            <button type="button" id="add-step-button">Add Step</button>
         </div>
     </div>
-    <button>Edit the Steps</button>
     <hr>
     </div>
+    <button type="submit">Submit Changes</button>
 </form>
 
 

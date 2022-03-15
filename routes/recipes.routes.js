@@ -23,7 +23,7 @@ router.post('/search', (req, res) => {
   if (searchValue === "") {
     res.render("recipe-views/search", { errorMessage: "Please provide a search value" })
   } else if (dietType !== "" && level !== "") {
-    Recipe.find({ $and: [{ dietRestriction: dietType }, { $text: { $search: JSON.stringify(searchValue) } }, { level: level }, { public: true }] })
+    Recipe.find({ $and: [{ dietRestriction: dietType }, { $text: { $search: JSON.stringify(searchValue) } }, { level: level }, { public: true }] }).populate('creator')
       .then(foundRecipe => {
         if (foundRecipe.length === 0) {
           res.render('recipe-views/search-result', { errorMessage: "Nothing was found" })
@@ -33,7 +33,7 @@ router.post('/search', (req, res) => {
       })
       .catch(error => console.log(error));
   } else if (level !== "") {
-    Recipe.find({ $and: [{ level: level }, { $text: { $search: JSON.stringify(searchValue) } }, { public: true }] })
+    Recipe.find({ $and: [{ level: level }, { $text: { $search: JSON.stringify(searchValue) } }, { public: true }] }).populate('creator')
       .then(foundRecipe => {
         if (foundRecipe.length === 0) {
           res.render('recipe-views/search-result', { errorMessage: "Nothing was found" })
@@ -43,7 +43,7 @@ router.post('/search', (req, res) => {
       })
       .catch(error => console.log(error));
   } else if (dietType !== "") {
-    Recipe.find({ $and: [{ dietRestriction: dietType }, { $text: { $search: JSON.stringify(searchValue) } }, { public: true }] })
+    Recipe.find({ $and: [{ dietRestriction: dietType }, { $text: { $search: JSON.stringify(searchValue) } }, { public: true }] }).populate('creator')
       .then(foundRecipe => {
         if (foundRecipe.length === 0) {
           res.render('recipe-views/search-result', { errorMessage: "Nothing was found" })
@@ -53,7 +53,7 @@ router.post('/search', (req, res) => {
       })
       .catch(error => console.log(error));
   } else {
-    Recipe.find({ $and: [{ $text: { $search: JSON.stringify(searchValue) } }, { public: true }] })
+    Recipe.find({ $and: [{ $text: { $search: JSON.stringify(searchValue) } }, { public: true }] }).populate('creator')
       .then(foundRecipe => {
         if (foundRecipe.length === 0) {
           res.render('recipe-views/search-result', { errorMessage: "Nothing was found" })
@@ -73,10 +73,13 @@ router.get("/detail/:id", isLoggedIn, async (req, res) => {
   const user = req.session.currentUser;
   const { id } = req.params;
   try {
-    const foundNotes = await Note.find({ $and: [{ user: user._id }, { recipe: id }] })
-    const recipe = await Recipe.findById(id).populate('creator')
+    const foundNotes = await Note.find({ $and: [{ user: user._id }, { recipe: id }] });
+    const recipe = await Recipe.findById(id).populate('creator');
+    const userCookbook = await User.findById(user._id)
     if (user.username === recipe.creator[0].username) {
       res.render("recipe-views/detail", { recipe: recipe, userMatch: true, note: foundNotes });
+    } else if (userCookbook.cookbook.includes(id)) {
+      res.render("recipe-views/detail", { recipe: recipe, cookbookMatch: true, note: foundNotes });
     } else {
       res.render("recipe-views/detail", { recipe: recipe, note: foundNotes });
     }
