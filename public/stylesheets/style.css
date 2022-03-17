@@ -12,7 +12,7 @@ body {
 }
 
 a {
-  color: #fffaef !important;
+  color: #fff !important;
 }
 
 h1 {
@@ -67,4 +67,8 @@ video {
 .btn-secondary {
   background-color: #edb1a1 !important;
   border-color: #d59f91 !important;
+}
+
+.detail {
+  background-color: #fffaef !important;
 }
