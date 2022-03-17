@@ -43,7 +43,7 @@
       Only Show My Recipes:
       <input type="checkbox" name="creator">
     </label>
-    <button type="submit" class="btn">Filter My Cookbook</button>
+    <button type="submit" class="btn btn-success">Filter My Cookbook</button>
   </form>
 </div>
 <hr>
@@ -57,7 +57,7 @@
         <p class="card-text">{{shortDescription}}</p>
         <p class="card-author">Recipe by {{creator.0.username}} <img src="{{creator.0.avatar}}" alt="avatar" class="mini-avatar"> </p>
         <a href="/recipe/detail/{{_id}}"><button class="btn btn-primary">View details</button></a>
-        <form action="/recipe/remove-from-cookbook/{{_id}}" method="post"><button type="submit" class="btn">Remove from
+        <form action="/recipe/remove-from-cookbook/{{_id}}" method="post"><button type="submit" class="btn btn-secondary">Remove from
                     my cookbook</button></form>
       </div>
     </div>
