@@ -43,12 +43,6 @@ function updateProgressBar() {
     ((progressActive.length - 1) / (progressSteps.length - 1)) * 100 + "%";
 }
 
-// Add ingredients to array
-// create a variable with an empty array
-// On click/enter
-// 1. create a new <li> with text area input, add new ingredient button, and go back button
-// 2. Turn input into string, push it into empty array, change previous <textarea> to <li>
-// When the user saves the recipe, add this array to Recipe.ingredients
 
 let ingredientsArray = [];
 let stepsArray = [];
@@ -72,6 +66,7 @@ function submitIngredient() {
       `<li onclick="deleteLi(event, ingredientsArray)"><p class="element-value">${ingredient}</p>🗑️</li>`;
     ingredientsArray.push(ingredient + '*split');
     ingredientsList.value = ingredientsArray;
+    console.log(ingredientsArray)
     clearField('ingredients');
 };
 
@@ -79,9 +74,9 @@ function submitStep() {
   let step = document.getElementsByClassName("stepsInput")[0].value;
     stepList.innerHTML =
       stepList.innerHTML +
-      `<li onclick="deleteLi(event, stepsArray)"><p class="element-value">${step}</p> 🗑️</li>`;
+      `<li onclick="deleteLi(event, stepsArray);"><p class="element-value">${step}</p> 🗑️</li>`;
     stepsArray.push(step + '*split');
-    stepsList.value = stepsArray;
+    stepsList.value  = stepsArray;
     clearField('steps');
 };
 
@@ -113,15 +108,12 @@ addStepBtn.forEach((btn) => {
 
 function deleteLi(event, arr) {
   let target = event.target.querySelector(".element-value").innerHTML;
+    console.log(target)
   arr = arr.filter((e) => e !== target);
   event.target.remove();
+  for (let i=0; i<= arr.length; i++){
+  if (target + '*split' === arr[i]){
+   arr.splice(i, 1)}
+  }
+  return arr
 }
-
-
-//problems to solve:
-//1. add diet restrictions to array
-//2. create form for picture and somehow add it to the object
-//3. add all data to the object
-//3. clear ingredient/steps input box after adding info
-//4. add ingredient/steps with enter key
-//5. 

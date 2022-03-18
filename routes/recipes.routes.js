@@ -130,7 +130,7 @@ router.get("/edit/:id", isLoggedIn, async (req, res) => {
 
 router.post('/edit/:id', fileUploader.single('imageUrl'), async (req, res) => {
   const { title, level, cuisine, dishtType, public, ingredientsList, stepsList, vegan, vegetarian, glutenFree, shortDescription, currentImg } = req.body;
-  const obj = JSON.parse(JSON.stringify(req.body)); // req.body = [Object: null prototype] { title: 'product' }
+  const obj = JSON.parse(JSON.stringify(req.body)); 
   obj.ingredientsList = ingredientsList.split('*split,')
   obj.ingredientsList[obj.ingredientsList.length - 1] = obj.ingredientsList[obj.ingredientsList.length - 1].replace('*split', '')
   obj.stepsList = stepsList.split('*split,')
@@ -152,7 +152,7 @@ router.post('/edit/:id', fileUploader.single('imageUrl'), async (req, res) => {
         shortDescription: shortDescription,
         imageUrl: req.file.path,
         cookingSteps: obj.stepsList,
-        dietRestriction: obj.dietRestriction, //how do I do this?
+        dietRestriction: obj.dietRestriction,
         level: level,
         cuisine: cuisine,
         dishtType: dishtType,
@@ -166,14 +166,13 @@ router.post('/edit/:id', fileUploader.single('imageUrl'), async (req, res) => {
         creator: userID,
         shortDescription: shortDescription,
         cookingSteps: obj.stepsList,
-        dietRestriction: obj.dietRestriction, //how do I do this?
+        dietRestriction: obj.dietRestriction,
         level: level,
         cuisine: cuisine,
         dishtType: dishtType,
         public: obj.public
       }, { new: true })
       res.redirect(`/recipe/detail/${id}`)
-      // res.send(obj)
     }
   } catch (error) {
     console.log(error);
@@ -188,7 +187,7 @@ router.post("/delete/:id", isLoggedIn, async (req, res) => {
 
 router.post('/create-recipe', fileUploader.single("imageUrl"), (req, res) => {
   const { title, level, cuisine, dishtType, public, ingredientsList, stepsList, vegan, vegetarian, glutenFree, shortDescription } = req.body;
-  const obj = JSON.parse(JSON.stringify(req.body)); // req.body = [Object: null prototype] { title: 'product' }
+  const obj = JSON.parse(JSON.stringify(req.body)); 
   obj.ingredientsList = ingredientsList.split('*split,')
   obj.ingredientsList[obj.ingredientsList.length - 1] = obj.ingredientsList[obj.ingredientsList.length - 1].replace('*split', '')
   obj.stepsList = stepsList.split('*split,')
@@ -209,7 +208,7 @@ router.post('/create-recipe', fileUploader.single("imageUrl"), (req, res) => {
       shortDescription: shortDescription,
       imageUrl: req.file.path,
       cookingSteps: obj.stepsList,
-      dietRestriction: obj.dietRestriction, //how do I do this?
+      dietRestriction: obj.dietRestriction,
       level: level,
       cuisine: cuisine,
       dishtType: dishtType,
@@ -227,7 +226,7 @@ router.post('/create-recipe', fileUploader.single("imageUrl"), (req, res) => {
       creator: userID,
       shortDescription: shortDescription,
       cookingSteps: obj.stepsList,
-      dietRestriction: obj.dietRestriction, //how do I do this?
+      dietRestriction: obj.dietRestriction,
       level: level,
       cuisine: cuisine,
       dishtType: dishtType,
@@ -239,8 +238,6 @@ router.post('/create-recipe', fileUploader.single("imageUrl"), (req, res) => {
       .then(() => res.redirect('/my-cookbook'))
       .catch(error => console.log(error))
   }
-
-
 });
 
 module.exports = router;
