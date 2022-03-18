@@ -69,36 +69,36 @@
                 <input type="checkbox" name="public" value="public">
                 <label for="public"> I want to share this recipe with the community</label>
             </div>
-            <button type="button" class="btn btn-next btn-primary">Next</button>
+            <button type="button" class="btn btn-next btn-primary btn-sm">Next</button>
         </div>
 
         <div class="form-step">
             <h3>Ingredients</h3>
             <ul class="list ingredients"></ul>
             <div>
-                <input class="ingredientInput" type="text" id="ingredients" cols="50" rows="3"
-                    placeholder="Add ingredients"></input>
+                <textarea class="ingredientInput" type="text" id="ingredients" cols="50" rows="1"
+                    placeholder="Add ingredients"></textarea>
                 <input type="hidden" name="ingredientsList" value="" id="ingredientsList">
-                <button type="button" class="btn add-ingredient-btn btn-success" id="ingredient-btn">Add ingredient</button>
+                <button type="button" class="btn add-ingredient-btn btn-success btn-sm" id="ingredient-btn">Add ingredient</button>
             </div>
             <br>
-            <button type="button" class="btn btn-prev btn-secondary">Back</button>
-            <button type="button" class="btn btn-next btn-primary">Next</button>
+            <button type="button" class="btn btn-prev btn-secondary btn-sm">Back</button>
+            <button type="button" class="btn btn-next btn-primary btn-sm">Next</button>
         </div>
 
         <div class="form-step">
             <h3>Cooking steps</h3>
             <ol class="stepList"></ol>
             <div>
-                <input class="stepsInput" type="text" id="steps" placeholder="Add your cooking steps here" cols="50"
-                    rows="3"></input>
+                <textarea class="stepsInput" type="text" id="steps" placeholder="Add your cooking steps here" cols="50"
+                    rows="3"></textarea>
                  <input type="hidden" name="stepsList" value="" id="stepsList">
-                <button type="button" class="btn add-step-btn btn-success" id="steps-btn">Add cooking step</button>
+                <button type="button" class="btn add-step-btn btn-success btn-sm" id="steps-btn">Add cooking step</button>
             </div>
 
             <br>
-            <button type="button" class="btn btn-prev btn-secondary">Back</button>
-            <button type="button" class="btn btn-next btn-primary ">Next</button>
+            <button type="button" class="btn btn-prev btn-secondary btn-sm">Back</button>
+            <button type="button" class="btn btn-next btn-primary btn-sm ">Next</button>
         </div>
 
         <div class="form-step">
@@ -107,8 +107,8 @@
                 <input type="file" id="imageUrl" name="imageUrl">
                 <h6>Upload a photo of your dish</h6>
             </div>
-            <button type="button" class="btn btn-prev btn-secondary">Back</button>
-            <button id="submit-btn"  class="btn btn-primary">Save my recipe</button>
+            <button type="button" class="btn btn-prev btn-secondary btn-sm">Back</button>
+            <button id="submit-btn"  class="btn btn-success">Save my recipe</button>
         </div>
 
     </form>
