@@ -4,7 +4,7 @@
 <h1>Add a new recipe</h1>
 <hr>
 <div class="container">
-    <form action="/recipe/create-recipe" method="post" class="form detail" enctype="multipart/form-data">
+    <form action="/recipe/create-recipe" method="post" class="form detail form-group" enctype="multipart/form-data">
         <div class="progressbar">
             <div class="progress" id="progress"></div>
             <div class="progress-step progress-step-active" data-title="Basic info"></div>
@@ -15,16 +15,16 @@
 
         <div class="form-step form-step-active">
             <label for="title">Name of your recipe</label>
-            <input type="text" name="title" id="title" >
+            <input type="text" name="title" id="title" class="form-control">
             <br>
             <label for="shortDescription">Short description</label>
-            <textarea name="shortDescription" id="shortDescription" maxlength="100" cols="50" rows="2"
+            <textarea name="shortDescription" id="shortDescription" maxlength="100" cols="50" rows="2" class="form-control"
                 placeholder="Describe your recipe in a few words"></textarea>
             <br>
-            <label>Type of dish</label>
+            
             <div>
-                <label for="dishtType">
-                    <select name="dishtType" id="dishtType">
+                <label for="dishtType">Type of dish</label>
+                    <select name="dishtType" id="dishtType" class="form-control">
                         <option value="Appetizer">Appetizer</option>
                         <option value="Breakfast">Breakfast</option>
                         <option value="Dessert">Dessert</option>
@@ -38,7 +38,6 @@
                         <option value="Starter">Starter</option>
                         <option value="Other">Other</option>
                     </select>
-                </label>
             </div>
             <div>
                 <label for="diet-restrictions">Diet restrictions:</label>
@@ -51,18 +50,16 @@
             </div>
             <div>
                 <label for="level">Level</label>
-                <label>
-                    <select name="level" id="level">
+                    <select name="level" id="level" class="form-control">
                         <option value=""></option>
                         <option value="Easy">Easy</option>
                         <option value="Medium">Medium</option>
                         <option value="Fancy">Fancy</option>
                     </select>
-                </label>
             </div>
             <div>
                 <label for="cuisine">Cuisine</label>
-                <input type="text" name="cuisine" id="cuisine" placeholder="Italian, Japanese, etc.">
+                <input type="text" name="cuisine" id="cuisine" placeholder="Italian, Japanese, etc." class="form-control">
             </div>
             <div>
                 <h4>Do you wanna share your recipe?</h4>
@@ -72,11 +69,11 @@
             <button type="button" class="btn btn-next btn-primary btn-sm">Next</button>
         </div>
 
-        <div class="form-step">
+        <div class="form-step form-group">
             <h3>Ingredients</h3>
             <ul class="list ingredients"></ul>
             <div>
-                <textarea class="ingredientInput" type="text" id="ingredients" cols="50" rows="1"
+                <textarea class="ingredientInput form-control" type="text" id="ingredients" cols="50" rows="1"
                     placeholder="Add ingredients"></textarea>
                 <input type="hidden" name="ingredientsList" value="" id="ingredientsList">
                 <button type="button" class="btn add-ingredient-btn btn-success btn-sm" id="ingredient-btn">Add ingredient</button>
@@ -90,7 +87,7 @@
             <h3>Cooking steps</h3>
             <ol class="stepList"></ol>
             <div>
-                <textarea class="stepsInput" type="text" id="steps" placeholder="Add your cooking steps here" cols="50"
+                <textarea class="stepsInput form-control" type="text" id="steps" placeholder="Add your cooking steps here" cols="50"
                     rows="3"></textarea>
                  <input type="hidden" name="stepsList" value="" id="stepsList">
                 <button type="button" class="btn add-step-btn btn-success btn-sm" id="steps-btn">Add cooking step</button>
@@ -104,7 +101,7 @@
         <div class="form-step">
             <h3>Picture</h3>
             <div>
-                <input type="file" id="imageUrl" name="imageUrl">
+                <input type="file" id="imageUrl" name="imageUrl" class="form-control">
                 <h6>Upload a photo of your dish</h6>
             </div>
             <button type="button" class="btn btn-prev btn-secondary btn-sm">Back</button>

@@ -89,3 +89,7 @@ video {
   background-image: url("/images/Notebook-empty.png");
   background-size: cover;
 }
+
+.signup {
+  padding: 0rem;
+}

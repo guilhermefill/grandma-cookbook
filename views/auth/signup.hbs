@@ -1,21 +1,19 @@
   <div class="index row justify-content-center align-items-center">
   <div class="container row justify-content-center align-items-center">
-    <div class="card login">
-      <h1>Sign up</h1>
-      <div id="form">
-
+    <div class="card login justify-content-center align-items-right">
+      <h1 class="signup">Sign up</h1>
+      <div id="form container form-group">
         <form action="/signup" method="POST">
-
-          <label> Username
-            <input type="text" name="username" placeholder="Cook name" />
+          <label>Username
+            <input type="text" name="username" placeholder="Cook name" class="form-control"/>
           </label>
 
-          <label> Email
-            <input type="email" name="email" placeholder="home@cook.com" />
+          <label>Email
+            <input type="email" name="email" placeholder="home@cook.com" class="form-control"/>
           </label>
 
-          <label> Password
-            <input type="password" name="password" placeholder="********" />
+          <label>Password
+            <input type="password" name="password" placeholder="********" class="form-control"/>
           </label>
 
           <button type="submit" class="btn btn-success btn-lg">Create account</button>
