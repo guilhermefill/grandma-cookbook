@@ -1,11 +1,12 @@
 {{> navbar }}
 <h1>Search</h1>
-{{!-- Search form --}}
+<hr>
 {{#if errorMessage}}
 <div class="error-search">
     {{errorMessage}}
 </div>
 {{/if}}
+<div class="container">
 <div class="search">
     <form action="/recipe/search" method="POST">
     <div class="form-group">
@@ -43,4 +44,5 @@
     </div>
         <button type="submit" class="btn btn-primary">Search</button>
     </form>
+</div>
 </div>

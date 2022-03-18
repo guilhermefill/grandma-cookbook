@@ -4,7 +4,7 @@
 <h1>Add a new recipe</h1>
 <hr>
 <div class="container">
-    <form action="/recipe/create-recipe" method="post" class="form" enctype="multipart/form-data">
+    <form action="/recipe/create-recipe" method="post" class="form detail" enctype="multipart/form-data">
         <div class="progressbar">
             <div class="progress" id="progress"></div>
             <div class="progress-step progress-step-active" data-title="Basic info"></div>
@@ -18,7 +18,7 @@
             <input type="text" name="title" id="title" >
             <br>
             <label for="shortDescription">Short description</label>
-            <textarea name="shortDescription" id="shortDescription" maxlength="100" cols="50" rows="3"
+            <textarea name="shortDescription" id="shortDescription" maxlength="100" cols="50" rows="2"
                 placeholder="Describe your recipe in a few words"></textarea>
             <br>
             <label>Type of dish</label>
@@ -69,50 +69,49 @@
                 <input type="checkbox" name="public" value="public">
                 <label for="public"> I want to share this recipe with the community</label>
             </div>
-            <button type="button" class="btn btn-next">Next</button>
+            <button type="button" class="btn btn-next btn-primary btn-sm">Next</button>
         </div>
 
         <div class="form-step">
             <h3>Ingredients</h3>
             <ul class="list ingredients"></ul>
             <div>
-                <input class="ingredientInput" type="text" id="ingredients" cols="50" rows="3"
-                    placeholder="Add ingredients"></input>
+                <textarea class="ingredientInput" type="text" id="ingredients" cols="50" rows="1"
+                    placeholder="Add ingredients"></textarea>
                 <input type="hidden" name="ingredientsList" value="" id="ingredientsList">
-                <button type="button" class="btn add-ingredient-btn" id="ingredient-btn">Add ingredient</button>
+                <button type="button" class="btn add-ingredient-btn btn-success btn-sm" id="ingredient-btn">Add ingredient</button>
             </div>
             <br>
-            <button type="button" class="btn btn-prev">Back</button>
-            <button type="button" class="btn btn-next">Next</button>
+            <button type="button" class="btn btn-prev btn-secondary btn-sm">Back</button>
+            <button type="button" class="btn btn-next btn-primary btn-sm">Next</button>
         </div>
 
         <div class="form-step">
             <h3>Cooking steps</h3>
             <ol class="stepList"></ol>
             <div>
-                <input class="stepsInput" type="text" id="steps" placeholder="Add your cooking steps here" cols="50"
-                    rows="3"></input>
+                <textarea class="stepsInput" type="text" id="steps" placeholder="Add your cooking steps here" cols="50"
+                    rows="3"></textarea>
                  <input type="hidden" name="stepsList" value="" id="stepsList">
-                <button type="button" class="btn add-step-btn" id="steps-btn">Add cooking step</button>
+                <button type="button" class="btn add-step-btn btn-success btn-sm" id="steps-btn">Add cooking step</button>
             </div>
 
             <br>
-            <button type="button" class="btn btn-prev">Back</button>
-            <button type="button" class="btn btn-next ">Next</button>
+            <button type="button" class="btn btn-prev btn-secondary btn-sm">Back</button>
+            <button type="button" class="btn btn-next btn-primary btn-sm ">Next</button>
         </div>
 
         <div class="form-step">
             <h3>Picture</h3>
             <div>
-                {{!-- <img class="recipe-img"
-                    src="https://img.freepik.com/free-photo/frying-pan-empty-with-various-spices-black-table_1220-561.jpg?t=st=1646052931~exp=1646053531~hmac=6bb2c3c79673febfb82d1725483fab082dc8e1d50885e64bf8ef9e8b607a9d5c&w=1380">
-                <br> --}}
                 <input type="file" id="imageUrl" name="imageUrl">
                 <h6>Upload a photo of your dish</h6>
             </div>
-            <button type="button" class="btn btn-prev">Back</button>
-            <button id="submit-btn"  class="btn btn-primary">Save my recipe</button>
+            <button type="button" class="btn btn-prev btn-secondary btn-sm">Back</button>
+            <button id="submit-btn"  class="btn btn-success">Save my recipe</button>
         </div>
 
     </form>
 </div>
+
+<script src="/js/create-recipe.js"></script>

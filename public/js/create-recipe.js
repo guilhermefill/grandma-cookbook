@@ -67,8 +67,8 @@ function clearField(id) {
 function submitIngredient() {
   let ingredient = document.getElementsByClassName("ingredientInput")[0].value;
     ingList.innerHTML =
-      ingList.innerHTML +
-      `<li onclick="deleteLi(event, ingredientsArray)"><p class="element-value">${ingredient}</p>    🗑️</li>`;
+      ingList.innerHTML 
+      `<li onclick="deleteLi(event, ingredientsArray)"><p class="element-value">${ingredient}</p>🗑️</li>`;
     ingredientsArray.push(ingredient + '*split');
     ingredientsList.value = ingredientsArray;
     clearField('ingredients');

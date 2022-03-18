@@ -12,15 +12,18 @@ body {
 }
 
 a {
-  color: #00b7ff;
+  color: #fff !important;
 }
 
 h1 {
-  color: 15px;
+  color: #8a4e58 !important;
+  text-align: center;
+  padding: 2rem;
 }
 
 nav {
   display: flex;
+  background-color: #b1a1ed ;
 }
 
 nav ul {
@@ -34,6 +37,49 @@ datalist {
 }
 
 .mini-avatar {
-  height: 25px;
-  width: 25px;
+  height: 30px;
+  width: 30px;
+}
+
+.index {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: auto;
+  background-color: #b1a1ed;
+}
+
+.login{
+  background-color: #fff;
+  padding: 5rem;
+  margin-top: 10em;
+  align-items: center;
+
+}
+
+video {
+  position: relative;
+  object-fit: cover;
+  z-index: -1;
+}
+.btn-success{
+  background-color: #a1edb1 !important;
+  border-color: #91d59f !important;
+}
+
+.btn-primary {
+  background-color: #b1a1ed !important;
+  border-color: #8e81be !important;
+}
+
+.btn-secondary {
+  background-color: #edb1a1 !important;
+  border-color: #d59f91 !important;
+}
+
+.detail {
+  background-image: url("/images/Notebook-empty.png");
+  background-size: cover;
 }

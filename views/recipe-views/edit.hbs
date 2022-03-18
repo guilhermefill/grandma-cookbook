@@ -1,3 +1,118 @@
 {{> navbar }}
-<h1>Edit a Recipe</h1>
-<h2>{{recipe.title}}</h2>
+<hr>
+<h1>Edit a recipe</h1>
+<hr>
+<form action="/recipe/edit/{{recipe._id}}" method="post" enctype="multipart/form-data">
+    <div class="container detail">
+        <div class="row">
+            <div class="col-4">
+                <h3>Recipe Details:</h3>
+            </div>
+            <div class="col-8">
+                <label for="title">Name</label>
+                <input type="text" name="title" id="title" value="{{recipe.title}}">
+                <br>
+                <label for="shortDescription">Short description</label>
+                <textarea name="shortDescription" id="shortDescription" maxlength="100" cols="50"
+                    rows="2">{{recipe.shortDescription}}</textarea>
+                <br>
+
+                <img src="{{recipe.imageUrl}}" alt="{{recipe.title}}" height="200px">
+                <br>
+                <input type="file" id="imageUrl" name="imageUrl">
+                <input type="hidden" name="currentImg" value="{{recipe.imageUrl}}">
+                <br>
+                <label>Type of dish</label>
+                <label for="dishtType">
+                    <select name="dishtType" id="dishtType">
+                        <option hidden value="{{recipe.dishType}}" selected>{{recipe.dishType}}</option>
+                        <option value="Appetizer">Appetizer</option>
+                        <option value="Breakfast">Breakfast</option>
+                        <option value="Dessert">Dessert</option>
+                        <option value="Drink">Drink</option>
+                        <option value="Main course">Main course</option>
+                        <option value="Salad">Salad</option>
+                        <option value="Sauce">Sauce</option>
+                        <option value="Side dish">Side dish</option>
+                        <option value="Snack">Snack</option>
+                        <option value="Soup">Soup</option>
+                        <option value="Starter">Starter</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </label>
+                <label for="level">Level</label>
+                <label>
+                    <select name="level" id="level">
+                        <option hidden value="{{recipe.level}}" selected>{{recipe.level}}</option>
+                        <option value="Easy">Easy</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Fancy">Fancy</option>
+                    </select>
+                </label>
+                <label for="cuisine">Cuisine</label>
+                <input type="text" name="cuisine" id="cuisine" value="{{recipe.cuisine}}">
+                <br>
+                <label for="diet-restrictions">Diet restrictions:</label>
+                <input type="checkbox" name="vegan" value="Vegan" id="vegan">
+                <label for="vegan">Vegan</label>
+                <input type="checkbox" name="vegetarian" value="Vegetarian" id="vegetarian">
+                <label for="vegetarian">Vegetarian</label>
+                <input type="checkbox" name="glutenFree" value="Gluten-free" id="gluten-free">
+                <label for="glutenFree">Gluten-free</label>
+
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-4">
+                <h3>Ingredients</h3>
+            </div>
+            <div class="col-8">
+                <ul id="ingredient-list col">
+                    {{#each recipe.ingredients}}
+                    <li onclick="deleteLi(event, ingArray)" style="display: inline;" class="row"><input
+                            class="ingItem remover" type="text" id="ingredients" cols="75" value="{{this}}"></input> 🗑️
+                    </li>
+                    {{/each}}
+                </ul>
+                <input type="hidden" name="ingredientsList" id="ingredientsList" value="">
+                <button type="button" id="add-ingredient-btn">Add Ingredient</button>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-4">
+                <h3>Cooking Steps</h3>
+            </div>
+            <div class="col-8">
+                <ol id="step-list col">
+                    {{#each recipe.cookingSteps}}
+                    <li onclick="deleteLi(event, stpArray)" style="display: inline;" class="row"><textarea
+                            class="stpItem remover" type="text" cols="75" rows="4" id="ingredients">{{this}}</textarea>
+                        🗑️
+                    </li>
+                    {{/each}}
+                </ol>
+                <input type="hidden" name="stepsList" id="stepsList" value="">
+                <button type="button" id="add-step-button">Add Step</button>
+            </div>
+        </div>
+        <hr>
+    </div>
+    <div class="col">
+        <input type="checkbox" name="public" value="public" checked>
+        <label for="public"> I want to share this recipe with the community</label>
+        <br>
+        <button type="button" id="save-btn">Save Changes</button>
+        <button type="submit">Submit Changes</button>
+    </div>
+</form>
+
+
+
+
+
+
+
+
+<script src="/js/edit.script.js"></script>
