@@ -64,6 +64,11 @@ video {
   object-fit: cover;
   z-index: -1;
 }
+
+.btn {
+  margin: 5px 5px 5px 5px;
+}
+
 .btn-success{
   background-color: #a1edb1 !important;
   border-color: #91d59f !important;
@@ -72,6 +77,7 @@ video {
 .btn-primary {
   background-color: #b1a1ed !important;
   border-color: #8e81be !important;
+  margin: 5px 5px 5px 5px;
 }
 
 .btn-secondary {
