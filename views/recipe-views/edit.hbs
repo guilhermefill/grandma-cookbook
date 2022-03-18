@@ -1,5 +1,4 @@
 {{> navbar }}
-<hr>
 <h1>Edit a recipe</h1>
 <hr>
 <form action="/recipe/edit/{{recipe._id}}" method="post" enctype="multipart/form-data">
@@ -76,7 +75,7 @@
                     {{/each}}
                 </ul>
                 <input type="hidden" name="ingredientsList" id="ingredientsList" value="">
-                <button type="button" id="add-ingredient-btn">Add Ingredient</button>
+                <button type="button" id="add-ingredient-btn" class="btn btn-sm btn-primary">Add Ingredient</button>
             </div>
         </div>
         <hr>
@@ -94,18 +93,19 @@
                     {{/each}}
                 </ol>
                 <input type="hidden" name="stepsList" id="stepsList" value="">
-                <button type="button" id="add-step-button">Add Step</button>
+                <button type="button" id="add-step-button" class="btn btn-sm btn-primary">Add Step</button>
             </div>
         </div>
         <hr>
-    </div>
-    <div class="col">
+        <div class="col">
         <input type="checkbox" name="public" value="public" checked>
         <label for="public"> I want to share this recipe with the community</label>
         <br>
-        <button type="button" id="save-btn">Save Changes</button>
-        <button type="submit">Submit Changes</button>
+        <button type="button" id="save-btn" class="btn btn-primary">Save Changes</button>
+        <button type="submit" class="btn btn-lg btn-success">Submit Changes</button>
     </div>
+    </div>
+    
 </form>
 
 
