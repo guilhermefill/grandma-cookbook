@@ -18,7 +18,7 @@
   }
 
   .card-text {
-    margin-bottom: 1rem;
+    margin-bottom: 1px;
     max-height: 50px;
     overflow: hidden;
   }
@@ -32,6 +32,10 @@
   .card-author {
     font-size: small;
     font-style: italic;
+  }
+
+  .card-title {
+    margin-bottom: 0rem !important;
   }
   
   .row {margin: 0 -5px;}

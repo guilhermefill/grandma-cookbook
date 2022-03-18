@@ -50,8 +50,8 @@
       <img src="{{imageUrl}}" class="card-img-top" alt="{{title}}">
       <div class="card-body">
         <h4 class="card-title">{{title}}</h4>
-        <p class="card-text">{{shortDescription}}</p>
         <p class="card-author">Recipe by {{creator.0.username}} <img src="{{creator.0.avatar}}" alt="avatar" class="mini-avatar"></p>
+        <p class="card-text">{{shortDescription}}</p>
         <a href="/recipe/detail/{{_id}}"><button class="btn btn-primary">View details</button></a>
         <form action="/recipe/add-to-cookbook/{{_id}}" method="post"><button type="submit"
             class="btn btn-success btn-sm">Add to my
