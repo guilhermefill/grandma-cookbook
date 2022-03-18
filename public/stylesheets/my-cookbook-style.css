@@ -15,10 +15,11 @@
     border-radius: 5px 5px 5px 5px;
     width: 250px;
     border: 10px solid #fff;
+    max-height: 184px;
   }
 
   .card-text {
-    margin-bottom: 1px;
+    margin-bottom: 10px;
     max-height: 50px;
     overflow: hidden;
   }
