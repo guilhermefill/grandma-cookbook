@@ -31,7 +31,7 @@
     top: 50%;
     transform: translateY(-50%);
     background-color: #D9DAD8;
-    z-index: -1;
+    z-index: 0;
 }
 
 .progress {
@@ -48,6 +48,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 1;
 }
 
 .progress-step::before {
@@ -66,7 +67,7 @@
 }
 
 .progress-step-active {
-    background-color: #00b7ff;
+    background-color: #b1a1ed;
     color: white;
 }
 
@@ -75,3 +76,4 @@
     width:500px;
     word-break: break-word;
 }
+

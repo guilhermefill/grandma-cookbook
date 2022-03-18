@@ -1,22 +1,24 @@
-<h1>Login</h1>
+<div class="index">
+  <h1>Login</h1>
 
-<div id="form">
-  <form action="/login" method="POST">
+  <div id="form">
+    <form action="/login" method="POST">
 
-    <label> User name
-      <input type="text" name="username" placeholder="Cook name" />
-    </label>
+      <label> User name
+        <input type="text" name="username" placeholder="Cook name" />
+      </label>
 
-    <label> Password
-      <input type="password" name="password" placeholder="********" />
-    </label>
+      <label> Password
+        <input type="password" name="password" placeholder="********" />
+      </label>
 
-    <button type="submit">Log in</button>
-    
-    {{#if errorMessage}}
-    <p class="error">{{errorMessage}}</p>
-    {{/if}}
-    
-  </form>
-  <a href="/signup">Sign up!</a>
+      <button type="submit" class="btn btn-success">Log in</button>
+
+      {{#if errorMessage}}
+      <p class="error">{{errorMessage}}</p>
+      {{/if}}
+
+    </form>
+    <button class="btn btn-secondary"><a href="/signup">Sign up!</a></button>
+  </div>
 </div>
