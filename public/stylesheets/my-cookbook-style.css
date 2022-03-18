@@ -6,11 +6,14 @@
     padding: 16px;
     text-align: center;
     background-color: #fffaef !important;
+    background-image: url("/images/Notebook-empty.png");
+    background-size: cover;
   }
   
   .card-img-top {
     border-radius: 5px 5px 5px 5px;
     width: 250px;
+    border: 10px solid #fff;
   }
 
   .card-text {
@@ -23,6 +26,11 @@
     float: left;
     width: 25%;
     padding: 0 10px;
+  }
+
+  .card-author {
+    font-size: small;
+    font-style: italic;
   }
   
   .row {margin: 0 -5px;}
@@ -40,3 +48,4 @@
       margin-bottom: 20px;
     }
   }
+

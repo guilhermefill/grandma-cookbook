@@ -1,9 +1,9 @@
 {{> navbar }}
 <hr>
 <h1>Edit a recipe</h1>
-<br>
+<hr>
 <form action="/recipe/edit/{{recipe._id}}" method="post" enctype="multipart/form-data">
-    <div class="container">
+    <div class="container detail">
         <div class="row">
             <div class="col-4">
                 <h3>Recipe Details:</h3>
@@ -14,7 +14,7 @@
                 <br>
                 <label for="shortDescription">Short description</label>
                 <textarea name="shortDescription" id="shortDescription" maxlength="100" cols="50"
-                    rows="3">{{recipe.shortDescription}}</textarea>
+                    rows="2">{{recipe.shortDescription}}</textarea>
                 <br>
 
                 <img src="{{recipe.imageUrl}}" alt="{{recipe.title}}" height="200px">

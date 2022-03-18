@@ -1,27 +1,32 @@
-<div class="index">
-  <h1>Sign up</h1>
-  <div id="form">
+  <div class="index justify-content-center align-items-center">
+  <div class="container justify-content-center align-items-center">
+    <div class="card login align-items-center justify-content-center text-center">
+      <h1>Sign up</h1>
+      <div id="form">
 
-    <form action="/signup" method="POST">
+        <form action="/signup" method="POST">
 
-      <label> User name
-        <input type="text" name="username" placeholder="Cook name" />
-      </label>
+          <label> Username
+            <input type="text" name="username" placeholder="Cook name" />
+          </label>
 
-      <label> Email
-        <input type="email" name="email" placeholder="home@cook.com" />
-      </label>
+          <label> Email
+            <input type="email" name="email" placeholder="home@cook.com" />
+          </label>
 
-      <label> Password
-        <input type="password" name="password" placeholder="********" />
-      </label>
+          <label> Password
+            <input type="password" name="password" placeholder="********" />
+          </label>
 
-      <button type="submit" class="btn btn-success">Create account</button>
+          <button type="submit" class="btn btn-success">Create account</button>
 
-      {{#if errorMessage}}
-      <p class="error">{{errorMessage}}</p>
-      {{/if}}
-    </form>
-    <button class="btn btn-secondary"><a href="/login">Login</a></button>
+          {{#if errorMessage}}
+          <p class="error">{{errorMessage}}</p>
+          {{/if}}
+        </form>
+        <hr>
+        <button class="btn btn-secondary"><a href="/login">Login</a></button>
+      </div>
+    </div>
   </div>
 </div>

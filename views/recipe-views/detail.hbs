@@ -37,7 +37,7 @@
         <p>{{this.notes}}</p>
         <form action="/recipe/delete-note/{{../recipe._id}}" method="post">
             <input type="hidden" name="noteId" value="{{this._id}}">
-            <button type="submit" class="btn btn-danger">Delete note</button>
+            <button type="submit" class="btn btn-secondary">Delete note</button>
         </form>
         {{/each}}
         {{/if}}

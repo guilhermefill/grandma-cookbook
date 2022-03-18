@@ -17,6 +17,8 @@ a {
 
 h1 {
   color: #8a4e58 !important;
+  text-align: center;
+  padding: 2rem;
 }
 
 nav {
@@ -49,6 +51,14 @@ datalist {
   background-color: #b1a1ed;
 }
 
+.login{
+  background-color: #fff;
+  padding: 5rem;
+  margin-top: 10em;
+  align-items: center;
+
+}
+
 video {
   position: relative;
   object-fit: cover;
@@ -70,5 +80,6 @@ video {
 }
 
 .detail {
-  background-color: #fffaef !important;
+  background-image: url("/images/Notebook-empty.png");
+  background-size: cover;
 }
