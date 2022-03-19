@@ -43,9 +43,9 @@ router.post("/signup", (req, res, next) => {
       });
     })
     .then((userFromDB) => {
-      console.log(`New user created is`, userFromDB);
+      req.session.currentUser = userFromDB;
     })
-    .then(() => res.redirect("/login"))
+    .then(() => res.redirect("/my-cookbook"))
     .catch((error) => {
       if (error instanceof mongoose.Error.ValidationError) {
         res.status(500).render("auth/signup", { errorMessage: error.message });
