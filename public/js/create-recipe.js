@@ -60,13 +60,11 @@ function clearField(id) {
 
 function submitIngredient() {
   let ingredient = document.getElementsByClassName("ingredientInput")[0].value;
-  console.log(ingredient)
     ingList.innerHTML =
       ingList.innerHTML +
-      `<li onclick="deleteLi(event, ingredientsArray)"><p class="element-value">${ingredient}</p>🗑️</li>`;
-    ingredientsArray.push(ingredient + '*split');
+      `<li onclick="deleteLi(event, ingredientsArray, ingredientsList)"><p class="element-value">${ingredient}</p>🗑️</li>`;
+    ingredientsArray.push(ingredient + '*split'); 
     ingredientsList.value = ingredientsArray;
-    console.log(ingredientsArray)
     clearField('ingredients');
 };
 
@@ -74,7 +72,7 @@ function submitStep() {
   let step = document.getElementsByClassName("stepsInput")[0].value;
     stepList.innerHTML =
       stepList.innerHTML +
-      `<li onclick="deleteLi(event, stepsArray);"><p class="element-value">${step}</p> 🗑️</li>`;
+      `<li onclick="deleteLi(event, stepsArray, stepsList);"><p class="element-value">${step}</p> 🗑️</li>`;
     stepsArray.push(step + '*split');
     stepsList.value  = stepsArray;
     clearField('steps');
@@ -106,14 +104,9 @@ addStepBtn.forEach((btn) => {
   });
 });
 
-function deleteLi(event, arr) {
+function deleteLi(event, arr, hidden) {
   let target = event.target.querySelector(".element-value").innerHTML;
-    console.log(target)
-  arr = arr.filter((e) => e !== target);
   event.target.remove();
-  for (let i=0; i<= arr.length; i++){
-  if (target + '*split' === arr[i]){
-   arr.splice(i, 1)}
-  }
-  return arr
+  arr.splice(arr.indexOf(target + '*split'), 1)
+  hidden.value = arr;
 }
