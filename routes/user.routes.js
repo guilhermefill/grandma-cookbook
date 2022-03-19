@@ -124,7 +124,15 @@ router.post("/profile/delete", (req, res) => {
   const userID = req.session.currentUser._id;
 
   User.findByIdAndDelete(userID)
-    .then(() => res.redirect("/signup"))
+    .then(() => {
+      req.session.destroy(error => {
+        if(error) {
+            console.log(error);
+        } else {
+            res.redirect('/');
+        }
+    });
+    })
     .catch((error) => next(error));
 });
 
