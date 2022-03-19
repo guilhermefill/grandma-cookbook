@@ -69,6 +69,7 @@ router.post('/discover', isLoggedIn, async (req, res) => {
 });
 
 router.get("/my-cookbook", (req, res) => {
+  console.log(req.session)
   const user = req.session.currentUser;
   if (user.cookbook.length === 0) {
     res.redirect("/discover");
