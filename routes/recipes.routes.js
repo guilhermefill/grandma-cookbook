@@ -181,7 +181,8 @@ router.post('/edit/:id', fileUploader.single('imageUrl'), async (req, res) => {
 
 router.post("/delete/:id", isLoggedIn, async (req, res) => {
   const { id } = req.params;
-  const foundRecipe = await Recipe.findByIdAndDelete(id)
+  const foundRecipe = await Recipe.findByIdAndDelete(id);
+  const cookbookMatch = User.findByIdAndUpdate(id, {$pull: { cookbook: id }})
   res.redirect('/my-cookbook')
 });
 
