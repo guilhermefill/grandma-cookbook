@@ -6,43 +6,45 @@
     {{errorMessage}}
 </div>
 {{/if}}
-<div class="container">
-<div class="search">
-    <form action="/recipe/search" method="POST">
-    <div class="form-group">
-        <div class="first-line-search">
-            <label>Search:
-                <input type="text" name="searchValue" placeholder="Search for a recipe... try: potatos">
-            </label>
-        </div>
+<div class="row align-items-center justify-content-center">
+    <div class="search card justify-content-center">
+        <form action="/recipe/search" method="POST" class="form-group ">
+            <div>
+                <div class="first-line-search">
+                    <label style="font-size: medium; font-weight:bold">Search:
+                        <textarea type="text" name="searchValue" placeholder="Search for a recipe... try: potatos"
+                            class="form-control" rows="2"></textarea>
+                    </label>
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <div class="second-line-search">
+                    <label>
+                        Diet:
+                        <select name="dietType" class="form-control">
+                            <option value=""></option>
+                            <option value="Vegan">Vegan</option>
+                            <option value="Vegetarian">Vegetarian</option>
+                            <option value="Gluten-free">Gluten Free</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="third-line-search">
+                    <label>
+                        Level:
+                        <select name="level" class="form-control">
+                            <option value=""></option>
+                            <option value="Easy">Easy</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Fancy">Fancy</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success btn-lg">Search</button>
+        </form>
     </div>
-    <div class="form-group">
-        <div class="second-line-search">
-            <label>
-                Diet:
-                <select name="dietType">
-                    <option value=""></option>
-                    <option value="Vegan">Vegan</option>
-                    <option value="Vegetarian">Vegetarian</option>
-                    <option value="Gluten-free">Gluten Free</option>
-                </select>
-            </label>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="third-line-search">
-            <label>
-                Level:
-                <select name="level">
-                    <option value=""></option>
-                    <option value="Easy">Easy</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Fancy">Fancy</option>
-                </select>
-            </label>
-        </div>
-    </div>
-        <button type="submit" class="btn btn-primary">Search</button>
-    </form>
-</div>
 </div>
