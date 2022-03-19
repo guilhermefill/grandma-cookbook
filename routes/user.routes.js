@@ -34,7 +34,7 @@ router.get("/discover", isLoggedIn, async (req, res) => {
   const user = req.session.currentUser;
   try {
     const loggedUser = await User.findById(user._id)
-    const foundRecipes = await Recipe.find({public: true}).populate('creator')
+    const foundRecipes = await Recipe.find({ public: true }).populate('creator')
     const unseenRecipes = foundRecipes.filter(x => !loggedUser.cookbook.includes(x._id))
     let shuffledRecipes = shuffle(unseenRecipes)
     res.render("user-views/discover", { shuffledRecipes });
@@ -71,16 +71,16 @@ router.post('/discover', isLoggedIn, async (req, res) => {
 router.get("/my-cookbook", (req, res) => {
   console.log(req.session)
   const user = req.session.currentUser;
-  if (user.cookbook.length === 0) {
-    res.redirect("/discover");
-  } else {
-    User.findById(user._id)
-      .populate({path: 'cookbook', populate: {path: 'creator'}})
-      .then((userRecipes) => {
+  User.findById(user._id)
+    .populate({ path: 'cookbook', populate: { path: 'creator' } })
+    .then((userRecipes) => {
+      if (user.cookbook.length === 0) {
+        res.redirect("/discover");
+      } else {
         res.render("user-views/my-cookbook", { recipes: userRecipes.cookbook });
-      })
-      .catch((error) => console.log(error));
-  }
+      }
+    })
+    .catch((error) => console.log(error));
 });
 
 router.post('/my-cookbook', isLoggedIn, async (req, res) => {
