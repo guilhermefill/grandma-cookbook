@@ -218,7 +218,10 @@ router.post('/create-recipe', fileUploader.single("imageUrl"), (req, res) => {
       .then(recipe => {
         return User.findByIdAndUpdate(userID, { $push: { cookbook: recipe._id } })
       })
-      .then(() => res.redirect('/my-cookbook'))
+      .then((updatedUser) => {
+        req.session.currentUser = updatedUser
+        res.redirect('/my-cookbook')
+      })
       .catch(error => console.log(error))
   } else {
     Recipe.create({
