@@ -26,7 +26,7 @@ app.use(express.json())
 app.use(session({
     secret: 'keyboardcat',
     resave: true,
-    saveUninitialized: false,
+    saveUninitialized: true,
     cookie: {
         httpOnly: true
     },
