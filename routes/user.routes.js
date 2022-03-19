@@ -71,13 +71,15 @@ router.post('/discover', isLoggedIn, async (req, res) => {
 router.get("/my-cookbook", (req, res) => {
   console.log(req.session)
   const user = req.session.currentUser;
+  
   User.findById(user._id)
     .populate({ path: 'cookbook', populate: { path: 'creator' } })
-    .then((userRecipes) => {
-      if (user.cookbook.length === 0) {
+    .then((userFromDB) => {
+      console.log(userFromDB)
+      if (userFromDB.cookbook.length === 0) {
         res.redirect("/discover");
       } else {
-        res.render("user-views/my-cookbook", { recipes: userRecipes.cookbook });
+        res.render("user-views/my-cookbook", { recipes: userFromDB.cookbook });
       }
     })
     .catch((error) => console.log(error));
